@@ -1,8 +1,11 @@
-# LIV Landing (Next.js + Tailwind + Framer Motion)
+# LIV Landing v2 (Next.js + Tailwind + Framer Motion)
 
-## Scripts
-- `npm install`
-- `npm run dev`
+## Requisitos de imágenes (latas transparentes + agua)
+Colocá tus PNGs transparentes (fondo transparente, líquido claro) en `public/images/` con estos nombres exactos:
+- raspberry-can.png
+- grape-can.png
+- lemon-can.png
+- blueberry-can.png
+- liv-logo.png
 
-## Deploy en Vercel
-Importar repo a Vercel (framework: Next.js). Luego agregar dominio livenergywater.com en Settings > Domains.
+Luego subí el proyecto a GitHub y desplegalo en Vercel.

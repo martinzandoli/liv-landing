@@ -1,20 +1,19 @@
 {
-  "name": "liv-landing",
+  "name": "liv-landing-v2",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
-    "autoprefixer": "latest",
-    "framer-motion": "latest",
     "next": "latest",
-    "postcss": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "framer-motion": "latest",
+    "autoprefixer": "latest",
+    "postcss": "latest",
     "tailwindcss": "latest"
   }
 }
