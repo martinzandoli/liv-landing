@@ -1,46 +1,38 @@
 import { put, list } from '@vercel/blob';
 
-// Opcional: forzá Node.js runtime (no Edge)
-export const runtime = 'nodejs';
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    // Para comprobar que la ruta existe: devuelve 405 en GET
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).json({ ok: false, error: 'Method Not Allowed' });
+  }
 
-export async function POST(req) {
   try {
-    const { email } = await req.json();
-
+    const { email } = req.body || {};
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      return new Response(
-        JSON.stringify({ ok: false, error: 'Email inválido' }),
-        { status: 400 }
-      );
+      return res.status(400).json({ ok: false, error: 'Email inválido' });
     }
 
-    // ⬇️ usamos el token que Vercel inyecta al conectar el Store
-    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    const token = process.env.BLOB_READ_WRITE_TOKEN; // Vercel lo inyecta al conectar el Store
     if (!token) {
-      console.error('Falta BLOB_READ_WRITE_TOKEN en el proyecto');
-      return new Response(
-        JSON.stringify({ ok: false, error: 'Storage no configurado' }),
-        { status: 500 }
-      );
+      return res.status(500).json({ ok: false, error: 'Storage no configurado' });
     }
 
     const CSV_NAME = 'emails.csv';
 
-    // Ver si ya existe el CSV
+    // Buscar CSV existente
     const { blobs } = await list({ prefix: CSV_NAME, token });
     let current = '';
-
     if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url);
-      current = res.ok ? await res.text() : '';
+      const r = await fetch(blobs[0].url);
+      current = r.ok ? await r.text() : '';
     }
 
-    // Armar CSV (con header si hace falta)
+    // Armar CSV con header si falta
     const header = 'email,created_at\n';
     const hasHeader = current.startsWith('email,created_at');
     const safeEmail = String(email).replace(/,/g, ' ');
     const line = `${safeEmail},${new Date().toISOString()}\n`;
-
     const nextContent =
       (hasHeader ? current : (current ? header + current : header)) + line;
 
@@ -48,16 +40,13 @@ export async function POST(req) {
     await put(CSV_NAME, nextContent, {
       access: 'private',
       contentType: 'text/csv; charset=utf-8',
-      token,               // ⬅️ token explícito
+      token,
       addRandomSuffix: false,
     });
 
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('subscribe error:', err);
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Server error' }),
-      { status: 500 }
-    );
+    return res.status(500).json({ ok: false, error: 'Server error' });
   }
 }
