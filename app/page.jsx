@@ -19,10 +19,10 @@ export default function Page() {
               <span className="text-lg font-semibold tracking-tight">LIV Energy Water</span>
             </div>
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
-              Simple. Transparente. Potente.
+              Energética. Simple. Natural.
             </h1>
             <p className="mt-3 max-w-xl text-lg text-gray-700">
-              "¿Querés que te avisemos cuando lancemos? Dejá tu email y sé de los primeros."
+              ¿Querés que te avisemos cuando lancemos? Dejá tu email y sé de los primeros.
             </p>
             <form onSubmit={(e)=>{e.preventDefault(); alert(`Gracias! Te avisamos a: ${email}`); setEmail("");}} className="mt-6 flex max-w-lg gap-3">
               <input type="email" required placeholder="Ingresá tu email" value={email} onChange={(e)=>setEmail(e.target.value)} className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2" />
