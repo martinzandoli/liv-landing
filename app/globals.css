@@ -1,10 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4: un único import  */
+@import "tailwindcss";
 
+/* Base (podés usar @apply acá sin errores) */
+@layer base {
+  html, body { height: 100%; margin: 0; padding: 0; }
+  body { @apply antialiased text-gray-900; }
+}
+
+/* Fondo pastel y overlays (lo que ya tenías) */
 :root{ --bg1:#e5f6ff; --bg2:#efe9ff; }
-html, body { height: 100%; }
-body { @apply antialiased text-gray-900; }
 
 .bg-pastel {
   background:
@@ -12,7 +16,23 @@ body { @apply antialiased text-gray-900; }
     radial-gradient(140% 140% at 100% 100%, var(--bg2), #ffffff 60%);
 }
 
-.hero-overlay { background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15) 40%, rgba(255,255,255,0)); }
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15) 40%, rgba(255,255,255,0));
+}
 
-.can-gloss::after{ content:""; position:absolute; inset:0; pointer-events:none; background: linear-gradient(120deg, rgba(255,255,255,.0) 20%, rgba(255,255,255,.25) 38%, rgba(255,255,255,0) 55%); mix-blend-mode: screen; }
-.can-drops::before{ content:""; position:absolute; inset:0; pointer-events:none; background-image: radial-gradient(rgba(255,255,255,.35) 0 20%, rgba(255,255,255,0) 22%), radial-gradient(rgba(255,255,255,.2) 0 18%, rgba(255,255,255,0) 20%); background-size: 8px 8px, 10px 10px; background-position: 0 0, 4px 4px; opacity:.25; filter: blur(.2px); }
+/* Efectos de lata */
+.can-gloss::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(120deg, rgba(255,255,255,.0) 20%, rgba(255,255,255,.25) 38%, rgba(255,255,255,0) 55%);
+  mix-blend-mode: screen;
+}
+.can-drops::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(rgba(255,255,255,.35) 0 20%, rgba(255,255,255,0) 22%),
+    radial-gradient(rgba(255,255,255,.2) 0 18%, rgba(255,255,255,0) 20%);
+  background-size: 8px 8px, 10px 10px;
+  background-position: 0 0, 4px 4px;
+  opacity:.25;
+  filter: blur(.2px);
+}
