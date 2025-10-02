@@ -1,38 +1,56 @@
-/* Tailwind v4: un único import  */
+/* Tailwind v4 */
 @import "tailwindcss";
 
-/* Base (podés usar @apply acá sin errores) */
+/* Base styles */
 @layer base {
-  html, body { height: 100%; margin: 0; padding: 0; }
-  body { @apply antialiased text-gray-900; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    @apply antialiased text-gray-900;
+    background: linear-gradient(
+      135deg,
+      #cfe9f9 0%,   /* azul claro */
+      #dcd1f3 100%  /* violeta suave */
+    );
+  }
 }
 
-/* Fondo pastel y overlays (lo que ya tenías) */
-:root{ --bg1:#e5f6ff; --bg2:#efe9ff; }
-
-.bg-pastel {
-  background:
-    radial-gradient(120% 120% at 0% 0%, var(--bg1), transparent 60%),
-    radial-gradient(140% 140% at 100% 100%, var(--bg2), #ffffff 60%);
-}
-
+/* Overlay hero */
 .hero-overlay {
-  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15) 40%, rgba(255,255,255,0));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0)
+  );
 }
 
-/* Efectos de lata */
-.can-gloss::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(120deg, rgba(255,255,255,.0) 20%, rgba(255,255,255,.25) 38%, rgba(255,255,255,0) 55%);
+/* Efectos de las latas */
+.can-gloss::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.25) 38%,
+    rgba(255, 255, 255, 0) 55%
+  );
   mix-blend-mode: screen;
 }
-.can-drops::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
+.can-drops::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image:
-    radial-gradient(rgba(255,255,255,.35) 0 20%, rgba(255,255,255,0) 22%),
-    radial-gradient(rgba(255,255,255,.2) 0 18%, rgba(255,255,255,0) 20%);
+    radial-gradient(rgba(255, 255, 255, 0.35) 0 20%, rgba(255, 255, 255, 0) 22%),
+    radial-gradient(rgba(255, 255, 255, 0.2) 0 18%, rgba(255, 255, 255, 0) 20%);
   background-size: 8px 8px, 10px 10px;
   background-position: 0 0, 4px 4px;
-  opacity:.25;
-  filter: blur(.2px);
+  opacity: 0.25;
+  filter: blur(0.2px);
 }
+
