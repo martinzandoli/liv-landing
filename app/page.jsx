@@ -24,10 +24,38 @@ export default function Page() {
             <p className="mt-3 max-w-xl text-lg text-gray-700">
               ¿Querés que te avisemos cuando lancemos? Dejá tu email y sé de los primeros.
             </p>
-            <form onSubmit={(e)=>{e.preventDefault(); alert(`Gracias! Te avisamos a: ${email}`); setEmail("");}} className="mt-6 flex max-w-lg gap-3">
-              <input type="email" required placeholder="Ingresá tu email" value={email} onChange={(e)=>setEmail(e.target.value)} className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2" />
-              <Button className="rounded-2xl px-6 font-semibold">Notificarme</Button>
-            </form>
+            <form
+  onSubmit={async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        alert(`¡Gracias! Te avisamos a: ${email}`);
+        setEmail('');
+      } else {
+        alert(data.error || 'Hubo un problema. Intentá de nuevo.');
+      }
+    } catch (err) {
+      alert('No se pudo enviar. Revisá tu conexión e intentá de nuevo.');
+    }
+  }}
+  className="mt-6 flex max-w-lg gap-3"
+>
+  <input
+    type="email"
+    required
+    placeholder="Ingresá tu email"
+    value={email}
+    onChange={(e)=>setEmail(e.target.value)}
+    className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2"
+  />
+  <Button className="rounded-2xl px-6 font-semibold">Notificarme</Button>
+</form>
           </div>
         </div>
       </section>
