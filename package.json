@@ -14,6 +14,7 @@
     "tailwindcss": "latest",
     "postcss": "latest",
     "autoprefixer": "latest",
+    "@vercel/blob": "latest",
     "@tailwindcss/postcss": "latest",
     "framer-motion": "latest"
   }
