@@ -22,7 +22,7 @@ export default function Page() {
               Simple. Transparente. Potente.
             </h1>
             <p className="mt-3 max-w-xl text-lg text-gray-700">
-              Hidratación real con energía limpia. Latas transparentes con líquido claro como agua.
+              "¿Querés que te avisemos cuando lancemos? Dejá tu email y sé de los primeros."
             </p>
             <form onSubmit={(e)=>{e.preventDefault(); alert(`Gracias! Te avisamos a: ${email}`); setEmail("");}} className="mt-6 flex max-w-lg gap-3">
               <input type="email" required placeholder="Ingresá tu email" value={email} onChange={(e)=>setEmail(e.target.value)} className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2" />
