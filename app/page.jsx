@@ -36,48 +36,46 @@ export default function Page() {
             </p>
 
             {/* FORM */}
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const value = email.trim();
-                if (!value) return;
-                setSending(true);
-                try {
-                  const res = await fetch("/api/subscribe", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: value }),
-                  });
-                  const data = await res.json();
-                  if (data.ok) {
-                    alert(`¡Gracias! Te avisamos a: ${value}`);
-                    setEmail("");
-                  } else {
-                    alert(data.error || "Hubo un problema. Intentá de nuevo.");
-                  }
-                } catch {
-                  alert("No se pudo enviar. Revisá tu conexión e intentá de nuevo.");
-                } finally {
-                  setSending(false);
-                }
-              }}
-              className="mt-6 flex max-w-lg gap-3"
-            >
-              <input
-                type="email"
-                required
-                placeholder="Ingresá tu email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2"
-              />
-              <Button
-                className="rounded-2xl px-6 font-semibold"
-                disabled={sending}
-              >
-                {sending ? "Enviando..." : "Notificarme"}
-              </Button>
-            </form>
+           <form
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const value = email.trim();
+    if (!value) return;
+
+    try {
+      const res = await fetch("https://formspree.io/f/xjkarpoq", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: value }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        alert(`¡Gracias! Te avisamos a: ${value}`);
+        setEmail("");
+      } else {
+        alert(data?.error || "Hubo un problema. Intentá de nuevo.");
+      }
+    } catch {
+      alert("No se pudo enviar. Revisá tu conexión e intentá de nuevo.");
+    }
+  }}
+  className="mt-6 flex max-w-lg gap-3"
+>
+  <input
+    type="email"
+    required
+    placeholder="Ingresá tu email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="flex-1 rounded-2xl border border-gray-300 bg-white/90 px-5 py-3 outline-none ring-lime-400 transition focus:ring-2"
+  />
+  <Button className="rounded-2xl px-6 font-semibold">Notificarme</Button>
+</form>
+
           </div>
         </div>
       </section>
