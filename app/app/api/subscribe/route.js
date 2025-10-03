@@ -2,7 +2,6 @@ import { put, list } from '@vercel/blob';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    // Para comprobar que la ruta existe: devuelve 405 en GET
     res.setHeader('Allow', ['POST']);
     return res.status(405).json({ ok: false, error: 'Method Not Allowed' });
   }
@@ -13,14 +12,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ ok: false, error: 'Email inválido' });
     }
 
-    const token = process.env.BLOB_READ_WRITE_TOKEN; // Vercel lo inyecta al conectar el Store
+    const token = process.env.BLOB_READ_WRITE_TOKEN; // Vercel lo inyecta al conectar tu Blob Store
     if (!token) {
       return res.status(500).json({ ok: false, error: 'Storage no configurado' });
     }
 
     const CSV_NAME = 'emails.csv';
 
-    // Buscar CSV existente
+    // Leer CSV actual si existe
     const { blobs } = await list({ prefix: CSV_NAME, token });
     let current = '';
     if (blobs.length > 0) {
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
       current = r.ok ? await r.text() : '';
     }
 
-    // Armar CSV con header si falta
+    // Armar CSV (con header si falta)
     const header = 'email,created_at\n';
     const hasHeader = current.startsWith('email,created_at');
     const safeEmail = String(email).replace(/,/g, ' ');
@@ -36,7 +35,7 @@ export default async function handler(req, res) {
     const nextContent =
       (hasHeader ? current : (current ? header + current : header)) + line;
 
-    // Guardar (sobrescribe mismo nombre)
+    // Guardar (sobrescribe siempre el mismo nombre)
     await put(CSV_NAME, nextContent, {
       access: 'private',
       contentType: 'text/csv; charset=utf-8',
@@ -50,3 +49,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ ok: false, error: 'Server error' });
   }
 }
+
