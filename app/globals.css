@@ -1,14 +1,14 @@
-/* Tailwind v4: un único import  */
+/* Tailwind v4: un único import */
 @import "tailwindcss";
 
-/* Base (podés usar @apply acá sin errores) */
+/* Base */
 @layer base {
   html, body { height: 100%; margin: 0; padding: 0; }
   body { @apply antialiased text-gray-900; }
 }
 
-/* Fondo pastel y overlays (lo que ya tenías) */
-:root{ --bg1:#e5f6ff; --bg2:#efe9ff; }
+/* Fondo pastel y overlays (opcional) */
+:root { --bg1:#e5f6ff; --bg2:#efe9ff; }
 
 .bg-pastel {
   background:
@@ -17,15 +17,26 @@
 }
 
 .hero-overlay {
-  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15) 40%, rgba(255,255,255,0));
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.55),
+    rgba(255,255,255,.15) 40%,
+    rgba(255,255,255,0)
+  );
 }
 
 /* Efectos de lata */
 .can-gloss::after{
   content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(120deg, rgba(255,255,255,.0) 20%, rgba(255,255,255,.25) 38%, rgba(255,255,255,0) 55%);
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 20%,
+    rgba(255,255,255,.25) 38%,
+    rgba(255,255,255,0) 55%
+  );
   mix-blend-mode: screen;
 }
+
 .can-drops::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background-image:
@@ -35,6 +46,8 @@
   background-position: 0 0, 4px 4px;
   opacity:.25;
   filter: blur(.2px);
+}
+
 /* Fondo del hero */
 .hero-gradient {
   position: absolute;
@@ -51,8 +64,8 @@
   66%  { transform: translate(-8px, 8px) scale(0.98); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
-.animate-blob       { animation: blob 12s ease-in-out infinite; }
-.animate-blob-slow  { animation: blob 18s ease-in-out infinite; }
+.animate-blob      { animation: blob 12s ease-in-out infinite; }
+.animate-blob-slow { animation: blob 18s ease-in-out infinite; }
 
 @keyframes pulseGlow {
   0%, 100% { opacity: .25; }
@@ -60,4 +73,3 @@
 }
 .animate-pulseGlow { animation: pulseGlow 6s ease-in-out infinite; }
 
-}
