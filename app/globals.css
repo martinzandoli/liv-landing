@@ -1,106 +1,62 @@
-/* Tailwind base */
+/* Tailwind v4: un único import */
 @import "tailwindcss";
 
-/* Base general */
-@layer base {
--  html, body { height: 100%; margin: 0; padding: 0; }
--  body { @apply antialiased text-gray-900 bg-pastel; }
-+  html, body { height: 100%; margin: 0; padding: 0; }
-+  body { @apply antialiased text-gray-900; }
-}
-
-
-/* Fondo pastel uniforme en toda la página */
+/* Variables del fondo */
 :root {
   --bg1: #e5f6ff;
   --bg2: #efe9ff;
 }
 
+/* Clase personalizada de fondo global */
 .bg-pastel {
-  background: radial-gradient(
-      120% 120% at 0% 0%,
-      var(--bg1),
-      transparent 60%
-    ),
-    radial-gradient(
-      140% 140% at 100% 100%,
-      var(--bg2),
-      #ffffff 60%
-    );
+  background:
+    radial-gradient(120% 120% at 0% 0%, var(--bg1), transparent 60%),
+    radial-gradient(140% 140% at 100% 100%, var(--bg2), #ffffff 60%);
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* Eliminamos los gradientes locales sectorizados */
-.hero-overlay {
-  background: transparent;
+/* Base */
+@layer base {
+  html, body { height: 100%; margin: 0; padding: 0; }
+  /* 👇 NADA de bg-pastel acá */
+  body { @apply antialiased text-gray-900; }
 }
 
-/* Efectos opcionales de brillo o gotas */
-.can-gloss::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 0.25) 38%,
-    rgba(255, 255, 255, 0) 55%
-  );
+/* (Opcional) Efectos para latas */
+.can-gloss::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 20%,
+    rgba(255,255,255,.25) 38%,
+    rgba(255,255,255,0) 55%);
   mix-blend-mode: screen;
 }
-.can-drops::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(
-      rgba(255, 255, 255, 0.35) 0 20%,
-      rgba(255, 255, 255, 0) 22%
-    ),
-    radial-gradient(
-      rgba(255, 255, 255, 0.2) 0 18%,
-      rgba(255, 255, 255, 0) 20%
-    );
+.can-drops::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(rgba(255,255,255,.35) 0 20%, rgba(255,255,255,0) 22%),
+    radial-gradient(rgba(255,255,255,.2) 0 18%, rgba(255,255,255,0) 20%);
   background-size: 8px 8px, 10px 10px;
   background-position: 0 0, 4px 4px;
-  opacity: 0.25;
-  filter: blur(0.2px);
+  opacity:.25;
+  filter: blur(.2px);
 }
 
-/* Animaciones suaves */
+/* (Opcional) Animaciones suaves */
 @keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(10px, -12px) scale(1.05);
-  }
-  66% {
-    transform: translate(-8px, 8px) scale(0.98);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+  0%   { transform: translate(0,0) scale(1); }
+  33%  { transform: translate(10px,-12px) scale(1.05); }
+  66%  { transform: translate(-8px, 8px) scale(0.98); }
+  100% { transform: translate(0,0) scale(1); }
 }
-.animate-blob {
-  animation: blob 12s ease-in-out infinite;
-}
-.animate-blob-slow {
-  animation: blob 18s ease-in-out infinite;
-}
+.animate-blob      { animation: blob 12s ease-in-out infinite; }
+.animate-blob-slow { animation: blob 18s ease-in-out infinite; }
 
 @keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.45;
-  }
+  0%,100% { opacity:.25; }
+  50%     { opacity:.45; }
 }
-.animate-pulseGlow {
-  animation: pulseGlow 6s ease-in-out infinite;
-}
+.animate-pulseGlow { animation: pulseGlow 6s ease-in-out infinite; }
 
