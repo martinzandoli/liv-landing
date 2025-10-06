@@ -11,12 +11,12 @@ export default function Page() {
   return (
     <main className="relative">
       {/* HERO (sin fondo propio, usa el gradiente global del <body>) */}
-      <section className="relative min-h-[90svh] w-full overflow-hidden">
+      <section className="relative flex min-h-[92svh] w-full items-center overflow-hidden">
         {/* blobs suaves opcionales */}
         <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob" />
         <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow" />
 
-        <div className="relative inset-0 mx-auto grid max-w-7xl grid-cols-1 items-center px-6 md:grid-cols-2">
+        <div className="relative mx-auto w-full max-w-7xl grid grid-cols-1 items-center px-6 md:grid-cols-2">
           {/* Columna izquierda: título + texto + form */}
           <div>
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
@@ -84,15 +84,15 @@ export default function Page() {
               width={560}
               height={560}
               priority
-              className="relative z-10 mx-auto drop-shadow-2xl object-contain rounded-none"
+              className="relative z-10 mx-auto drop-shadow-2xl object-contain"
               style={{ marginTop: "-10px" }}
             />
           </div>
         </div>
       </section>
 
-      {/* SABORES */}
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
+      {/* SABORES (levísimo solapado para evitar cualquier banding visible) */}
+      <section className="mx-auto -mt-8 max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <h2 className="mb-8 text-2xl font-semibold">Sabores</h2>
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
