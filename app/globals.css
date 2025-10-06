@@ -3,15 +3,12 @@
 
 /* Base general */
 @layer base {
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    @apply antialiased text-gray-900 bg-pastel;
-  }
+-  html, body { height: 100%; margin: 0; padding: 0; }
+-  body { @apply antialiased text-gray-900 bg-pastel; }
++  html, body { height: 100%; margin: 0; padding: 0; }
++  body { @apply antialiased text-gray-900; }
 }
+
 
 /* Fondo pastel uniforme en toda la página */
 :root {
