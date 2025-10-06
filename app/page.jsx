@@ -10,22 +10,15 @@ export default function Page() {
 
   return (
     <main className="relative">
-      {/* HERO */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
-        <Image
-          src="/hero.png"
-          alt="LIV Energy Water"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="hero-overlay absolute inset-0" />
+      {/* HERO (sin fondo propio, usa el gradiente global del <body>) */}
+      <section className="relative min-h-[90svh] w-full overflow-hidden">
+        {/* blobs suaves opcionales */}
+        <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob" />
+        <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow" />
 
-        <div className="absolute inset-0 mx-auto grid max-w-7xl grid-cols-1 items-center px-6 md:grid-cols-2">
+        <div className="relative inset-0 mx-auto grid max-w-7xl grid-cols-1 items-center px-6 md:grid-cols-2">
           {/* Columna izquierda: título + texto + form */}
           <div>
-            {/* (Eliminado el pequeño logo/título superior) */}
-
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
               Energética. Simple.{" "}
               <span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
@@ -93,8 +86,7 @@ export default function Page() {
               priority
               className="relative z-10 mx-auto drop-shadow-2xl object-contain rounded-none"
               style={{ marginTop: "-10px" }}
-           />
-
+            />
           </div>
         </div>
       </section>
@@ -136,4 +128,3 @@ export default function Page() {
     </main>
   );
 }
-
