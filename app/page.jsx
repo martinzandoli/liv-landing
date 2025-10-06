@@ -115,8 +115,8 @@ export default function Page() {
         <h2 className="mb-6 text-2xl font-semibold">¿Por qué LIV?</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["⚡️ Energía limpia", "Cafeína calibrada, sin azúcar."],
-            ["💧 Hidratación real", "Agua + electrolitos ligeros."],
+            ["⚡️ Potencia lo que háces", "Solo cafeína. 0 calorias."],
+            ["💧 LIV es simple", "LIV es agua."],
             ["🍃 Sabor natural", "Refresco claro y liviano."],
           ].map(([title, desc]) => (
             <div
