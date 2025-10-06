@@ -17,8 +17,20 @@ export default function Page() {
         <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow" />
 
         <div className="relative mx-auto w-full max-w-7xl grid grid-cols-1 items-center px-6 md:grid-cols-2">
-          {/* Columna izquierda: título + texto + form */}
+          {/* Columna izquierda: logo mobile + título + texto + form */}
           <div>
+            {/* Logo solo en mobile, centrado arriba del texto */}
+            <div className="mb-6 flex justify-center md:hidden">
+              <Image
+                src="/images/liv-logo-removebg.png"
+                alt="LIV Energy Water"
+                width={160}
+                height={160}
+                priority
+                className="object-contain drop-shadow-lg"
+              />
+            </div>
+
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
               Energética. Simple.{" "}
               <span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
@@ -74,7 +86,7 @@ export default function Page() {
             </form>
           </div>
 
-          {/* Columna derecha: logo grande LIV */}
+          {/* Columna derecha: logo grande LIV (solo desktop/tablet) */}
           <div className="relative hidden h-full w-full items-center justify-center md:flex">
             {/* Halo suave detrás del logo */}
             <div className="absolute -top-10 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/40 blur-3xl" />
