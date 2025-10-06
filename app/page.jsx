@@ -91,8 +91,10 @@ export default function Page() {
               width={560}
               height={560}
               priority
-              className="relative z-10 mx-auto drop-shadow-2xl"
-            />
+              className="relative z-10 mx-auto drop-shadow-2xl object-contain rounded-none"
+              style={{ marginTop: "-10px" }}
+           />
+
           </div>
         </div>
       </section>
