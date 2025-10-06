@@ -20,14 +20,13 @@ export default function Page() {
           {/* Columna izquierda: logo mobile + título + texto + form */}
           <div>
             {/* Logo solo en mobile, centrado arriba del texto */}
-            <div className="mb-6 flex justify-center md:hidden">
-              <Image
+            <div className="relative mb-6 flex justify-center md:hidden z-10">
+              <img
                 src="/images/liv-logo-removebg.png"
                 alt="LIV Energy Water"
-                width={160}
-                height={160}
-                priority
-                className="object-contain drop-shadow-lg"
+                className="h-24 w-auto object-contain drop-shadow-lg"
+                loading="eager"
+                decoding="async"
               />
             </div>
 
@@ -103,7 +102,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SABORES (levísimo solapado para evitar cualquier banding visible) */}
+      {/* SABORES */}
       <section className="mx-auto -mt-8 max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <h2 className="mb-8 text-2xl font-semibold">Sabores</h2>
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -119,9 +118,9 @@ export default function Page() {
         <h2 className="mb-6 text-2xl font-semibold">¿Por qué LIV?</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["⚡️ Potencia lo que háces", "  Solo cafeína. 0 calorias."],
-            ["💧 LIV es simple", "  LIV es agua."],
-            ["🍃 Sabor natural", "  Refresco claro y liviano."],
+            ["⚡️ Potencia lo que hacés", "Solo cafeína. 0 calorías."],
+            ["💧 LIV es simple", "LIV es agua."],
+            ["🍃 Sabor natural", "Refresco claro y liviano."],
           ].map(([title, desc]) => (
             <div
               key={title}
