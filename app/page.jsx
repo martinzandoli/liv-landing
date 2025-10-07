@@ -107,7 +107,6 @@ export default function Page() {
 
       {/* SABORES (sin -mt-8 para no forzar solapados) */}
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
-        <h2 className="mb-8 text-2xl font-semibold">Sabores</h2>
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
           <AnimatedCan src="/images/grape-can.png" alt="Grape" />
