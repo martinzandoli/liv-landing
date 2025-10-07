@@ -13,14 +13,14 @@ export default function Page() {
       {/* HERO (sin fondo propio, usa el gradiente global del <body>) */}
       <section className="relative flex min-h-[92svh] w-full items-center overflow-hidden">
         {/* blobs suaves opcionales */}
-        <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow" />
+        <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob z-0" />
+        <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow z-0" />
 
-        <div className="relative mx-auto w-full max-w-7xl grid grid-cols-1 items-center px-6 md:grid-cols-2">
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 md:grid-cols-2">
           {/* Columna izquierda: logo mobile + título + texto + form */}
           <div>
             {/* Logo solo en mobile, centrado arriba del texto */}
-            <div className="relative mb-6 flex justify-center md:hidden z-10">
+            <div className="relative mb-6 flex justify-center md:hidden z-20">
               <img
                 src="/images/liv-logo-removebg.png"
                 alt="LIV Energy Water"
@@ -100,10 +100,13 @@ export default function Page() {
             />
           </div>
         </div>
+
+        {/* Puente de fusión para que no se note la división */}
+        <div className="seamless-fade" />
       </section>
 
-      {/* SABORES */}
-      <section className="mx-auto -mt-8 max-w-7xl px-6 pb-16 pt-14 md:pb-24">
+      {/* SABORES (sin -mt-8 para no forzar solapados) */}
+      <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <h2 className="mb-8 text-2xl font-semibold">Sabores</h2>
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
