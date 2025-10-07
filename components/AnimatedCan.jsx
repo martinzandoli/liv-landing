@@ -16,7 +16,8 @@ export default function AnimatedCan({ src, alt, label, delay = 0 }) {
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 60, damping: 10, delay }}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => { setHovered(false);
+                            y.set(0);}}           // vuelve a neutro
       style={{ rotate }}
     >
       <motion.div
