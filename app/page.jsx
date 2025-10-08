@@ -120,9 +120,9 @@ export default function Page() {
         <h2 className="mb-6 text-2xl font-semibold">¿Por qué LIV?</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["⚡️ Potencia lo que hacés", "Solo cafeína. 0 calorías."],
-            ["💧 LIV es simple", "LIV es agua."],
-            ["🍃 Sabor natural", "Refresco claro y liviano."],
+            ["⚡️ Potencia lo que hacés", "  Solo cafeína. 0 calorías."],
+            ["💧 LIV es simple", "  LIV es agua."],
+            ["🍃 Sabor natural", "  Refresco claro y liviano."],
           ].map(([title, desc]) => (
             <div
               key={title}
