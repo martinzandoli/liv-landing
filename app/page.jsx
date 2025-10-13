@@ -106,11 +106,11 @@ export default function Page() {
         </div>
 
         {/* Puente de fusión para que no se note la división */}
-        <div className="seamless-fade" />
+        <div className="seamless-fade z-30" />
       </section>
 
-      {/* SABORES */}
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
+      {/* SABORES (solapado mínimo para fundir bajo el velo) */}
+      <section className="mx-auto -mt-6 max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <div className="can-tilt">
             <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
@@ -150,4 +150,3 @@ export default function Page() {
     </main>
   );
 }
-
