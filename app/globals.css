@@ -92,22 +92,29 @@ html, body {
 }
 .animate-pulseGlow { animation: pulseGlow 6s ease-in-out infinite; }
 
-/* Suaviza la unión entre secciones */
+/* Suaviza la unión entre secciones (más alto y por encima) */
 .seamless-fade {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -1px;              /* pisa exactamente el borde */
-  height: 140px;             /* probá 100–180 según gusto */
+  bottom: -1px;              /* pisa exactamente el borde del hero */
+  height: 220px;             /* podés subir a 260px si querés más blend */
   pointer-events: none;
-  /* Un velo muy suave que “desaparece” el borde del hero */
+  z-index: 30;               /* por encima de la sección siguiente */
+
   background: linear-gradient(
     to bottom,
     rgba(255,255,255,0) 0%,
     rgba(255,255,255,.22) 55%,
     rgba(255,255,255,0) 100%
   );
+
+  /* suaviza bordes del velo */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+  backdrop-filter: blur(2px);
 }
+
 /* ——— Luz caústica sutil ——— */
 .caustics {
   position: absolute; inset: 0; pointer-events: none;
