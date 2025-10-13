@@ -9,9 +9,13 @@ export default function Page() {
   const [sending, setSending] = useState(false);
 
   return (
-    <main className="relative">
+    <main className="relative grain">
       {/* HERO (sin fondo propio, usa el gradiente global del <body>) */}
       <section className="relative flex min-h-[92svh] w-full items-center overflow-hidden">
+        {/* Luz de agua (caústicas) + barrido de luz */}
+        <div className="caustics z-0" />
+        <div className="light-sweep z-0" />
+
         {/* blobs suaves opcionales */}
         <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob z-0" />
         <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow z-0" />
@@ -105,13 +109,21 @@ export default function Page() {
         <div className="seamless-fade" />
       </section>
 
-      {/* SABORES (sin -mt-8 para no forzar solapados) */}
+      {/* SABORES */}
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
-          <AnimatedCan src="/images/grape-can.png" alt="Grape" />
-          <AnimatedCan src="/images/lemon-can.png" alt="Lemon" />
-          <AnimatedCan src="/images/blueberry-can.png" alt="Blueberry" />
+          <div className="can-tilt">
+            <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
+          </div>
+          <div className="can-tilt">
+            <AnimatedCan src="/images/grape-can.png" alt="Grape" />
+          </div>
+          <div className="can-tilt">
+            <AnimatedCan src="/images/lemon-can.png" alt="Lemon" />
+          </div>
+          <div className="can-tilt">
+            <AnimatedCan src="/images/blueberry-can.png" alt="Blueberry" />
+          </div>
         </div>
       </section>
 
@@ -120,14 +132,11 @@ export default function Page() {
         <h2 className="mb-6 text-2xl font-semibold">¿Por qué LIV?</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["⚡️ Potencia lo que hacés", "  Solo cafeína. 0 calorías."],
-            ["💧 LIV es simple", "  LIV es agua."],
-            ["🍃 Sabor natural", "  Refresco claro y liviano."],
+            ["⚡️ Potencia lo que hacés", "Solo cafeína. 0 calorías."],
+            ["💧 LIV es simple", "LIV es agua."],
+            ["🍃 Sabor natural", "Refresco claro y liviano."],
           ].map(([title, desc]) => (
-            <div
-              key={title}
-              className="rounded-2xl border border-gray-200 bg-white/70 p-5 shadow-sm backdrop-blur"
-            >
+            <div key={title} className="card-soft p-5">
               <div className="text-base font-medium">{title}</div>
               <div className="text-sm text-gray-600">{desc}</div>
             </div>
@@ -141,3 +150,4 @@ export default function Page() {
     </main>
   );
 }
+
