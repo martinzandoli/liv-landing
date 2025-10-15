@@ -36,9 +36,9 @@ export default function Page() {
 
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
               Energética. Simple.{" "}
-              <span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
+              {/*<span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
                 Natural.
-              </span>
+              </span>*/}
             </h1>
 
             <p className="mt-3 max-w-xl text-lg text-gray-700">
