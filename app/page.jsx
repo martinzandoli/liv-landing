@@ -10,20 +10,13 @@ export default function Page() {
 
   return (
     <main className="relative grain">
-      {/* HERO (sin fondo propio, usa el gradiente global del <body>) */}
+      {/* HERO */}
       <section className="relative flex min-h-[92svh] w-full items-center overflow-hidden">
-        {/* Luz de agua (caústicas) + barrido de luz */}
-        <div className="caustics z-0" />
-        <div className="light-sweep z-0" />
-
-        {/* blobs suaves opcionales */}
-        <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl animate-blob z-0" />
-        <div className="pointer-events-none absolute -bottom-20 -right-16 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl animate-blob-slow z-0" />
-
         <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center px-6 md:grid-cols-2">
-          {/* Columna izquierda: logo mobile + título + texto + form */}
+          
+          {/* Columna izquierda */}
           <div>
-            {/* Logo solo en mobile, centrado arriba del texto */}
+            {/* Logo mobile */}
             <div className="relative mb-6 flex justify-center md:hidden z-20">
               <img
                 src="/images/liv-logo-removebg.png"
@@ -36,9 +29,9 @@ export default function Page() {
 
             <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
               Energética. Simple.{" "}
-              {/*<span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
                 Natural.
-              </span>*/}
+              </span>
             </h1>
 
             <p className="mt-3 max-w-xl text-lg text-gray-700">
@@ -87,12 +80,36 @@ export default function Page() {
                 {sending ? "Enviando..." : "Notificarme"}
               </Button>
             </form>
+
+            {/* 🛒 BOTÓN NUEVO: Ir a la Tienda */}
+            <div className="mt-6">
+              <a
+                href="https://livenergywater.mitiendanube.com/?utm_source=landing&utm_medium=hero-cta&utm_campaign=launch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-lime-500 to-teal-500 px-6 py-3 font-semibold text-white shadow-md transition hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Ir a la Tienda
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 12h14M12 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
 
-          {/* Columna derecha: logo grande LIV (solo desktop/tablet) */}
+          {/* Columna derecha: logo grande LIV */}
           <div className="relative hidden h-full w-full items-center justify-center md:flex">
-            {/* Halo suave detrás del logo */}
-            <div className="absolute -top-10 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/40 blur-3xl" />
             <Image
               src="/images/liv-logo-removebg.png"
               alt="LIV Energy Water Logo"
@@ -105,11 +122,10 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Puente de fusión para que no se note la división */}
         <div className="seamless-fade z-30" />
       </section>
 
-      {/* SABORES (solapado mínimo para fundir bajo el velo) */}
+      {/* SABORES */}
       <section className="mx-auto -mt-6 max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <div className="can-tilt">
@@ -148,5 +164,8 @@ export default function Page() {
         © {new Date().getFullYear()} LIV Energy Water
       </footer>
     </main>
+  );
+}
+
   );
 }
