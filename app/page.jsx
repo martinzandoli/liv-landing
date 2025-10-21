@@ -41,7 +41,7 @@ export default function Page() {
 
   return (
     <main className="relative">
-      {/* HERO — sin efectos ni capas extra */}
+      {/* HERO */}
       <section className="relative flex min-h-[92svh] w-full items-center overflow-hidden">
         <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-2 md:gap-16">
           {/* Columna izquierda */}
@@ -58,10 +58,7 @@ export default function Page() {
             </div>
 
             <h1 className="mt-2 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
-              Energética. Simple.{" "}
-              <span className="bg-gradient-to-r from-lime-500 to-teal-500 bg-clip-text text-transparent">
-                Natural.
-              </span>
+              Energética. Simple.
             </h1>
 
             <p className="mt-4 max-w-xl text-lg text-gray-700">
@@ -82,18 +79,6 @@ export default function Page() {
                 {sending ? "Enviando..." : "Notificarme"}
               </Button>
             </form>
-
-            {/* CTA a Tienda Nube */}
-            <div className="mt-4">
-              <a
-                href="https://livenergywater.mitiendanube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block rounded-2xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
-              >
-                Ir a la tienda
-              </a>
-            </div>
           </div>
 
           {/* Columna derecha: logo grande (solo md+) */}
@@ -116,6 +101,7 @@ export default function Page() {
       {/* SABORES */}
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24">
         <h2 className="mb-8 text-2xl font-semibold">Sabores</h2>
+
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <div className="can-tilt">
             <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
@@ -129,6 +115,18 @@ export default function Page() {
           <div className="can-tilt">
             <AnimatedCan src="/images/blueberry-can.png" alt="Blueberry" />
           </div>
+        </div>
+
+        {/* Botón “Ir a la tienda” — debajo de las latas, alineado a la derecha */}
+        <div className="mt-10 flex justify-end">
+          <a
+            href="https://livenergywater.mitiendanube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-2xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:opacity-85"
+          >
+            Ir a la tienda
+          </a>
         </div>
       </section>
 
