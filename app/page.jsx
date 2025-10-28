@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import AnimatedCan from "@/components/AnimatedCan";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -94,37 +92,33 @@ export default function Page() {
             />
           </div>
         </div>
-
-        {/* Suaviza la unión con la siguiente sección */}
-        <div className="seamless-fade" />
       </section>
 
       {/* SABORES */}
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
-        <h2 className="mb-8 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+        <h2 className="mb-10 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
           Sabores
         </h2>
 
-        {/* Grid 2 columnas fijas (también en mobile) */}
-        <div className="grid grid-cols-2 items-end justify-items-center gap-4 sm:gap-6 md:gap-10">
-          {[
-            { src: "/images/rasp.png", alt: "Raspberry" },
-            { src: "/images/mang.png", alt: "Mango" },
-          ].map((can, index) => (
-            <motion.div
-              key={index}
-              className="can-tilt w-32 sm:w-40 md:w-56 transition-transform duration-300 hover:scale-105"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              style={{
-                filter: "brightness(1.08) contrast(1.02) saturate(0.92)"
-              }}
-            >
-              <AnimatedCan src={can.src} alt={can.alt} />
-            </motion.div>
-          ))}
+        <div className="flex flex-wrap justify-center gap-8">
+          <div className="flex flex-col items-center">
+            <Image
+              src="/images/rasp.png"
+              alt="LIV Energy Water Raspberry"
+              width={260}
+              height={260}
+              className="object-contain"
+            />
+          </div>
+          <div className="flex flex-col items-center">
+            <Image
+              src="/images/mang.png"
+              alt="LIV Energy Water Mango"
+              width={260}
+              height={260}
+              className="object-contain"
+            />
+          </div>
         </div>
 
         {/* Botón “Ir a la tienda” */}
