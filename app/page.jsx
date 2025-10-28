@@ -106,8 +106,8 @@ export default function Page() {
         </h2>
 
         <div className="flex flex-wrap justify-center gap-8">
-          {[{ src: "/images/raspberryy.png", alt: "Raspberry" },
-            { src: "/images/mangoo.png", alt: "Mango" }]
+          {[{ src: "/images/raspberry-new.png", alt: "Raspberry" },
+            { src: "/images/mango-new.png", alt: "Mango" }]
             .map((can, index) => (
               <motion.div
                 key={index}
