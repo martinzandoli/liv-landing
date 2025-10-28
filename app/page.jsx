@@ -100,29 +100,46 @@ export default function Page() {
       </section>
 
       {/* SABORES */}
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
-        <h2 className="mb-8 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-          Sabores
-        </h2>
+<section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
+  <h2 className="mb-8 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+    Sabores
+  </h2>
 
-        {/* Grid 2 columnas fijas (también en mobile) */}
-        <div className="grid grid-cols-2 items-end justify-items-center gap-4 sm:gap-6 md:gap-8">
-          {[
-            { src: "/images/raspberry-new.png", alt: "Raspberry" },
-            { src: "/images/mango-new.png", alt: "Mango" },
-          ].map((can, index) => (
-            <motion.div
-              key={index}
-              className="can-tilt w-28 sm:w-32 md:w-44"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <AnimatedCan src={can.src} alt={can.alt} />
-            </motion.div>
-          ))}
-        </div>
+  {/* Grid 2 columnas fijas (también en mobile) */}
+  <div className="grid grid-cols-2 items-end justify-items-center gap-4 sm:gap-6 md:gap-10">
+    {[
+      { src: "/images/raspberry-new.png", alt: "Raspberry" },
+      { src: "/images/mango-new.png", alt: "Mango" },
+    ].map((can, index) => (
+      <motion.div
+        key={index}
+        className="can-tilt w-32 sm:w-40 md:w-56 transition-transform duration-300 hover:scale-105"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.2 }}
+        viewport={{ once: true }}
+        style={{
+          filter: "brightness(1.08) contrast(1.02) saturate(0.92)",
+        }}
+      >
+        <AnimatedCan src={can.src} alt={can.alt} />
+      </motion.div>
+    ))}
+  </div>
+
+  {/* Botón “Ir a la tienda” */}
+  <div className="mt-10 flex justify-center md:justify-end">
+    <a
+      href="https://livenergywater.mitiendanube.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block rounded-2xl bg-black px-8 py-3 text-base font-medium text-white transition hover:opacity-85"
+    >
+      Ir a la tienda
+    </a>
+  </div>
+</section>
+
 
         {/* Botón “Ir a la tienda” */}
         <div className="mt-10 flex justify-center md:justify-end">
