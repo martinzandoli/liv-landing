@@ -108,8 +108,8 @@ export default function Page() {
         {/* Grid 2 columnas fijas (también en mobile) */}
         <div className="grid grid-cols-2 items-end justify-items-center gap-4 sm:gap-6 md:gap-10">
           {[
-            { src: "/images/raspberry-new.png", alt: "Raspberry" },
-            { src: "/images/mango-new.png", alt: "Mango" },
+            { src: "/images/rasp.png", alt: "Raspberry" },
+            { src: "/images/mang.png", alt: "Mango" },
           ].map((can, index) => (
             <motion.div
               key={index}
