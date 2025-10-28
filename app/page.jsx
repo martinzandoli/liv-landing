@@ -101,29 +101,31 @@ export default function Page() {
 
       {/* SABORES */}
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
-        <h2 className="mb-10 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+        <h2 className="mb-8 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
           Sabores
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-8">
-          {[{ src: "/images/raspberry-new.png", alt: "Raspberry" },
-            { src: "/images/mango-new.png", alt: "Mango" }]
-            .map((can, index) => (
-              <motion.div
-                key={index}
-                className="can-tilt"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-              >
-                <AnimatedCan src={can.src} alt={can.alt} />
-              </motion.div>
-            ))}
+        {/* Grid 2 columnas fijas (también en mobile) */}
+        <div className="grid grid-cols-2 items-end justify-items-center gap-4 sm:gap-6 md:gap-8">
+          {[
+            { src: "/images/raspberry-new.png", alt: "Raspberry" },
+            { src: "/images/mango-new.png", alt: "Mango" },
+          ].map((can, index) => (
+            <motion.div
+              key={index}
+              className="can-tilt w-28 sm:w-32 md:w-44"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+            >
+              <AnimatedCan src={can.src} alt={can.alt} />
+            </motion.div>
+          ))}
         </div>
 
-        {/* Botón “Ir a la tienda” — debajo de las latas */}
-        <div className="mt-12 flex justify-center md:justify-end">
+        {/* Botón “Ir a la tienda” */}
+        <div className="mt-10 flex justify-center md:justify-end">
           <a
             href="https://livenergywater.mitiendanube.com/"
             target="_blank"
