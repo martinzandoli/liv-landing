@@ -104,16 +104,10 @@ export default function Page() {
 
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           <div className="can-tilt">
-            <AnimatedCan src="/images/raspberry-can.png" alt="Raspberry" />
+            <AnimatedCan src="/images/raspberry-new.png" alt="Raspberry" />
           </div>
           <div className="can-tilt">
-            <AnimatedCan src="/images/grape-can.png" alt="Grape" />
-          </div>
-          <div className="can-tilt">
-            <AnimatedCan src="/images/lemon-can.png" alt="Lemon" />
-          </div>
-          <div className="can-tilt">
-            <AnimatedCan src="/images/blueberry-can.png" alt="Blueberry" />
+            <AnimatedCan src="/images/mango-new.png" alt="Grape" />
           </div>
         </div>
 
