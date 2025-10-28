@@ -107,7 +107,7 @@ export default function Page() {
             <AnimatedCan src="/images/raspberry-new.png" alt="Raspberry" />
           </div>
           <div className="can-tilt">
-            <AnimatedCan src="/images/mango-new.png" alt="Grape" />
+            <AnimatedCan src="/images/mango-new.png" alt="Mango" />
           </div>
         </div>
 
