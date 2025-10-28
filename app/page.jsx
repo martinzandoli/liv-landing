@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AnimatedCan from "@/components/AnimatedCan";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -98,42 +99,36 @@ export default function Page() {
         <div className="seamless-fade" />
       </section>
 
-     {/* SABORES */}
-<section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
-  <h2 className="mb-10 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-    Sabores
-  </h2>
+      {/* SABORES */}
+      <section className="mx-auto max-w-7xl px-6 pb-16 pt-14 md:pb-24 text-center">
+        <h2 className="mb-10 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+          Sabores
+        </h2>
 
-  <div className="flex flex-wrap justify-center gap-8">
-    <div className="can-tilt">
-      <AnimatedCan src="/images/raspberry-new.png" alt="Raspberry" />
-    </div>
-    <div className="can-tilt">
-      <AnimatedCan src="/images/mango-new.png" alt="Mango" />
-    </div>
-  </div>
+        <div className="flex flex-wrap justify-center gap-8">
+          {[{ src: "/images/raspberry-new.png", alt: "Raspberry" },
+            { src: "/images/mango-new.png", alt: "Mango" }]
+            .map((can, index) => (
+              <motion.div
+                key={index}
+                className="can-tilt"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <AnimatedCan src={can.src} alt={can.alt} />
+              </motion.div>
+            ))}
+        </div>
 
-  {/* Botón “Ir a la tienda” — debajo de las latas, alineado a la derecha en desktop y centrado en mobile */}
-  <div className="mt-12 flex justify-center md:justify-end">
-    <a
-      href="https://livenergywater.mitiendanube.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block rounded-2xl bg-black px-8 py-3 text-base font-medium text-white transition hover:opacity-85"
-    >
-      Ir a la tienda
-    </a>
-  </div>
-</section>
-
-
-        {/* Botón “Ir a la tienda” — debajo de las latas, alineado a la derecha */}
-        <div className="mt-10 flex justify-end">
+        {/* Botón “Ir a la tienda” — debajo de las latas */}
+        <div className="mt-12 flex justify-center md:justify-end">
           <a
             href="https://livenergywater.mitiendanube.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-2xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:opacity-85"
+            className="inline-block rounded-2xl bg-black px-8 py-3 text-base font-medium text-white transition hover:opacity-85"
           >
             Ir a la tienda
           </a>
