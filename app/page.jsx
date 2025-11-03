@@ -120,18 +120,7 @@ export default function Page() {
             />
           </div>
         </div>
-
-        {/* Botón “Ir a la tienda” */}
-        <div className="mt-10 flex justify-center md:justify-end">
-          <a
-            href="https://livenergywater.mitiendanube.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-2xl bg-black px-8 py-3 text-base font-medium text-white transition hover:opacity-85"
-          >
-            Ir a la tienda
-          </a>
-        </div>
+        
       </section>
 
       {/* POR QUÉ LIV */}
