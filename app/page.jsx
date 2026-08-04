@@ -291,7 +291,7 @@ export default function Page() {
         <div className="mx-auto mb-4 max-w-xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Todo tiene una razón</h2>
           <p className="mt-3 text-[var(--ink)]/60">
-            Cuatro cosas entran en la lata. Ninguna de casualidad.
+            Cuatro decisiones de producto. Ninguna de casualidad.
           </p>
         </div>
 
