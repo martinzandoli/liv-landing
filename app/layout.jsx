@@ -1,16 +1,15 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "LIV Energy Water",
-  description: "Energía limpia, hidratación real.",
+  title: "LIV — Energy Water",
+  description:
+    "Agua sin gas, 150 mg de cafeína y L-teanina. Cero azúcar, cero calorías. Foco sostenido, sin el bajón.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className="antialiased text-gray-900 animate-background">
-        {children}
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

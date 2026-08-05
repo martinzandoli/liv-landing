@@ -2,76 +2,59 @@
 @import "tailwindcss";
 
 /* =========================================================
-   🌈 Fondo limpio LIV — sin nubes, sin blur, sin capas
+   Paleta LIV Raspberry — muestreada del render de la lata
    ========================================================= */
 :root {
-  --grad-start: #e6f3ff; /* celeste claro */
-  --grad-mid:   #efe9ff; /* lila suave */
-  --grad-end:   #ffffff; /* blanco limpio */
+  --ink: #1a1614;        /* casi negro, cálido */
+  --cream: #f8f0e8;      /* cuerpo de la lata: superficie principal */
+  --cream-deep: #f0e6db; /* cream un paso más oscuro, para bloques */
+  --rose: #d29690;       /* acento de la lata: solo decorativo */
+  --rose-deep: #9c554e;  /* acento accesible: CTA, links (4.87:1 sobre cream) */
+  --pure: #ffffff;       /* blanco puro: cierre y footer */
 }
 
-/* Fondo aplicado globalmente */
-html, body {
-  height: 100%;
+/* El canvas toma el color del cierre: al hacer overscroll al final
+   no aparece una franja de otro color debajo del footer. */
+html {
+  background: var(--pure);
+  scroll-behavior: smooth;
+  scroll-padding-top: 104px; /* alto del header sticky en mobile + aire */
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 80px;
+  }
+}
+
+body {
+  min-height: 100%;
   margin: 0;
   padding: 0;
-  background: linear-gradient(
-    135deg,
-    var(--grad-start) 0%,
-    var(--grad-mid)   50%,
-    var(--grad-end)   100%
-  );
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: var(--cream);
 }
 
-/* Base tipográfica */
 @layer base {
-  html, body {
-    height: 100%;
-  }
   body {
-    @apply antialiased text-gray-900;
+    @apply antialiased;
+    color: var(--ink);
   }
 }
 
-/* ——— Latas y efectos básicos sin blur ——— */
-.can-tilt {
-  transition: transform 0.25s ease;
-}
-.can-tilt:hover {
-  transform: translateY(-4px) rotate(-1deg);
+/* ——— Regla de sección: filete fino de marca ——— */
+.rule {
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
-/* ——— Cards limpias sin fondo translúcido ——— */
-.card-soft {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* ——— Línea de callout para la anatomía de la lata ——— */
+.callout-line {
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
 }
-.card-soft:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.07);
+.callout-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--rose-deep);
 }
-
-/* ——— Transición suave entre secciones ——— */
-.seamless-fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 100px;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-
-
