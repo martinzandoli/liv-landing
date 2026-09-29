@@ -93,15 +93,15 @@ export default function VideoFilm() {
         <video
           ref={desk.ref}
           className="absolute inset-0 h-full w-full object-cover"
-          poster="/video/lata-360-h.jpg"
+          poster="/video/giro-h.jpg"
           muted
           loop
           playsInline
           preload="none"
           aria-hidden
         >
-          <source src="/video/lata-360-h.mp4" type='video/mp4; codecs="avc1.640028"' />
-          <source src="/video/lata-360-h.webm" type='video/webm; codecs="vp9"' />
+          <source src="/video/giro-h.mp4" type='video/mp4; codecs="avc1.640028"' />
+          <source src="/video/giro-h.webm" type='video/webm; codecs="vp9"' />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-[#e9d8c3]/70 via-transparent to-transparent" />
         <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-between px-8 py-16">
@@ -140,15 +140,15 @@ export default function VideoFilm() {
           <video
             ref={mob.ref}
             className="absolute inset-0 h-full w-full object-cover"
-            poster="/video/lata-360-v.jpg"
+            poster="/video/giro-v.jpg"
             muted
             loop
             playsInline
             preload="none"
             aria-hidden
           >
-            <source src="/video/lata-360-v.mp4" type='video/mp4; codecs="avc1.640028"' />
-            <source src="/video/lata-360-v.webm" type='video/webm; codecs="vp9"' />
+            <source src="/video/giro-v.mp4" type='video/mp4; codecs="avc1.640028"' />
+            <source src="/video/giro-v.webm" type='video/webm; codecs="vp9"' />
           </video>
           <PlayToggle playing={mob.playing} onClick={mob.toggle} className="absolute bottom-4 right-4" />
         </div>

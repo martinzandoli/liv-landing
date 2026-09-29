@@ -25,7 +25,7 @@ export default function Hero() {
         <div className="flex flex-col justify-end lg:pb-2">
           <Reveal immediate delay={0.05} y={12}>
             <p className="rotulo text-muted">
-              Energy drink <span className="mx-1.5">·</span> Con gas <span className="mx-1.5">·</span> 355 mL
+              Energy drink <span className="mx-1.5">·</span> 355 mL
             </p>
           </Reveal>
           {/* ENERGÍA / LIV + IANA: el logo arma la palabra "liviana" */}
@@ -102,7 +102,7 @@ export default function Hero() {
         <div className="lg:col-start-1 lg:row-start-2">
           <Reveal immediate delay={0.55} className="mt-8 lg:mt-10">
             <p className="max-w-[30rem] text-pretty text-[18px] leading-relaxed text-ink/70 md:text-[19px]">
-              Con gas, cero azúcar y cero calorías. Todo lo que necesitás para tu día, nada que te pese.
+              Cero azúcar y cero calorías. Todo lo que necesitás para tu día.
             </p>
           </Reveal>
           <Reveal immediate delay={0.65} className="mt-7">
@@ -112,7 +112,7 @@ export default function Hero() {
             <Ficha
               items={[
                 { r: "Cafeína", v: 100, u: "mg" },
-                { r: "L-teanina", v: 150, u: "mg" },
+                { r: "L-teanina", v: 200, u: "mg" },
                 { r: "Azúcar", v: 0, u: "g" },
                 { r: "Kcal", v: 0 },
               ]}

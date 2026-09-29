@@ -3,12 +3,13 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { EASE, Ficha, Headline, Reveal } from "./motion";
 
-const INGREDIENTES = [
-  { n: "01", name: "Agua con gas", d: "La base. Burbuja fina, para tomarla bien fría.", v: "Base" },
-  { n: "02", name: "Saborizante", d: "Frambuesa: seca, fresca, nada empalagosa.", v: "Raspberry" },
-  { n: "03", name: "Ácido cítrico", d: "El punto ácido que la hace refrescante.", v: "Cítrico" },
-  { n: "04", name: "Cafeína", d: "Más o menos lo que tiene una taza de café.", v: "100 mg" },
-  { n: "05", name: "L-teanina", d: "El aminoácido del té. Acompaña a la cafeína para que la energía llegue sin sacudón.", v: "150 mg" },
+/* Lo que define a LIV: los dos activos y lo que no tiene. No es la lista de ingredientes
+   (esa va completa en la lata). */
+const CLAVES = [
+  { n: "01", name: "Cafeína", d: "Bloquea la adenosina, la señal de cansancio que se acumula durante el día.", v: "100 mg" },
+  { n: "02", name: "L-teanina", d: "Aminoácido natural del té verde, asociado a un estado de alerta relajado.", v: "200 mg" },
+  { n: "03", name: "Azúcar", d: "Ni un gramo.", v: "0 g" },
+  { n: "04", name: "Calorías", d: "Liviana en serio.", v: "0 kcal" },
 ];
 
 export default function Formula() {
@@ -20,20 +21,20 @@ export default function Formula() {
           <p className="rotulo text-muted">Fórmula</p>
           <Headline
             className="mt-4 text-[clamp(40px,5.6vw,76px)] font-extrabold leading-[0.95] tracking-[-0.035em]"
-            parts={["Cinco ingredientes. Los", { t: "contamos", it: true }, "todos."]}
+            parts={["Dos activos,", { t: "cero", it: true }, "azúcar."]}
           />
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-[26rem] text-[17px] leading-relaxed text-ink/65">
-              Sin letra chica: esto es todo lo que tiene una lata de LIV. Datos que se pueden verificar, no promesas.
+              Cafeína y L-teanina en proporción 1:2, sin azúcar y sin calorías. Datos que se pueden verificar, no promesas.
             </p>
           </Reveal>
           <Reveal delay={0.3} className="mt-10">
-            <Ficha size="lg" items={[{ r: "Azúcar", v: 0, u: "g" }, { r: "Kcal", v: 0 }, { r: "Lata", v: 355, u: "mL" }]} />
+            <Ficha size="lg" items={[{ r: "Proporción", v: "1:2" }, { r: "Lata", v: 355, u: "mL" }]} />
           </Reveal>
         </div>
 
         <ol className="border-t border-ink">
-          {INGREDIENTES.map((x, i) => (
+          {CLAVES.map((x, i) => (
             <motion.li
               key={x.n}
               initial={reduce ? false : { opacity: 0, y: 40 }}
@@ -50,7 +51,7 @@ export default function Formula() {
                   <p className="mt-2 text-[15px] text-ink/60 transition-colors duration-500 group-hover:text-white/70">{x.d}</p>
                 </div>
                 <span className="text-right text-[clamp(18px,2vw,26px)] font-extrabold tabular-nums tracking-[-0.02em]">
-                  {x.v === "Raspberry" ? <span className="it font-normal">{x.v}</span> : x.v}
+                  {x.v}
                 </span>
               </div>
             </motion.li>
