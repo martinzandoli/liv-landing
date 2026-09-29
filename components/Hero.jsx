@@ -91,7 +91,7 @@ export default function Hero() {
             transition={{ duration: 1.2, ease: EASE, delay: 0.45 }}
             className="absolute inset-0"
           >
-            <Can3D spin={spin} className="h-full w-full" autoSpeed={0.3} initialAngle={-0.5} />
+            <Can3D spin={spin} className="h-full w-full" autoRotate={false} sway={0.4} settle initialAngle={-0.2} />
           </motion.div>
           <p className="rotulo pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-muted/80">
             ← Arrastrá para girar →
