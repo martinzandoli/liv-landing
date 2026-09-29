@@ -2,76 +2,120 @@
 @import "tailwindcss";
 
 /* =========================================================
-   🌈 Fondo limpio LIV — sin nubes, sin blur, sin capas
+   Marca madre LIV: blanco y negro (manual de marca v1.1).
+   El color lo ponen el sabor y la fotografía, nunca la marca.
    ========================================================= */
-:root {
-  --grad-start: #e6f3ff; /* celeste claro */
-  --grad-mid:   #efe9ff; /* lila suave */
-  --grad-end:   #ffffff; /* blanco limpio */
+@theme inline {
+  --font-sans: var(--font-albert), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-surface: #f4f4f2;
+  --color-line: #dadad6;
+  --color-muted: #6f6e6a;
+
+  /* Sabor Raspberry: solo en la lata y en su comunicación */
+  --color-rasp: #8e1f4b;
+  --color-rasp-cream: #fbf3ef;
 }
 
-/* Fondo aplicado globalmente */
-html, body {
-  height: 100%;
+html {
+  background: #000; /* el cierre es negro: el overscroll no deja ver otro color */
+  scroll-padding-top: 88px;
+}
+
+body {
   margin: 0;
-  padding: 0;
-  background: linear-gradient(
-    135deg,
-    var(--grad-start) 0%,
-    var(--grad-mid)   50%,
-    var(--grad-end)   100%
-  );
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip; /* evita scroll lateral sin romper position: sticky */
 }
 
-/* Base tipográfica */
-@layer base {
-  html, body {
-    height: 100%;
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Acento: Fraunces Italic, una palabra por titular */
+.it {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* El cruce ×: siempre liviano */
+.cross {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 200;
+}
+
+/* Rótulo de la ficha */
+.rotulo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Marquesina infinita en CSS (la velocidad la ajusta JS con scroll) */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  body {
-    @apply antialiased text-gray-900;
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* ——— Latas y efectos básicos sin blur ——— */
-.can-tilt {
-  transition: transform 0.25s ease;
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
 }
-.can-tilt:hover {
-  transform: translateY(-4px) rotate(-1deg);
-}
-
-/* ——— Cards limpias sin fondo translúcido ——— */
-.card-soft {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.card-soft:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.07);
+.spin-slow {
+  animation: spin-slow 40s linear infinite;
 }
 
-/* ——— Transición suave entre secciones ——— */
-.seamless-fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 100px;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -2%); }
+  60% { transform: translate(-2%, -4%); }
+  80% { transform: translate(4%, 2%); }
 }
 
-
-
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
