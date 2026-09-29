@@ -1,6 +1,9 @@
 /* Tailwind v4: un único import */
 @import "tailwindcss";
 
+/* Pantallas apaisadas (escritorio, tablet horizontal, celular acostado): layout en columnas */
+@custom-variant wide (@media (min-width: 640px) and (min-aspect-ratio: 5/4));
+
 /* =========================================================
    Marca madre LIV: blanco y negro (manual de marca v1.1).
    El color lo ponen el sabor y la fotografía, nunca la marca.
