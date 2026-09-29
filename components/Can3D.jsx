@@ -18,6 +18,8 @@ export default function Can3D({
   interactive = true,
   float = true,
   mate = false, // sin reflejos marcados: etiqueta satinada y luz difusa
+  sway = 0, // balanceo suave alrededor del frente (radianes); reemplaza al giro continuo
+  settle = false, // al soltarla después de arrastrar, vuelve sola al frente
   initialAngle = -0.35,
   label = "/can/etiqueta-raspberry.jpg",
   className = "",
@@ -263,7 +265,7 @@ export default function Can3D({
       ro.observe(el);
 
       /* Interacción */
-      let angle = initialAngle;
+      let angle = 0; // giro acumulado por arrastre; el reposo es initialAngle
       let velocity = 0;
       let dragging = false;
       let lastX = 0;
@@ -317,10 +319,16 @@ export default function Can3D({
         if (!dragging) {
           angle += velocity * dt;
           velocity *= Math.pow(0.04, dt);
+          if (settle && Math.abs(velocity) < 0.8) {
+            // resorte hacia la vuelta completa más cercana: siempre termina de frente
+            const target = Math.round(angle / (Math.PI * 2)) * Math.PI * 2;
+            angle += (target - angle) * Math.min(1, dt * 2.2);
+          }
           if (autoRotate && !reduce) angle += autoSpeed * dt;
         }
+        const swing = sway && !reduce ? Math.sin(t * 0.7) * sway : 0;
         const ext = spinRef.current ? spinRef.current.get() : 0;
-        can.rotation.y = angle + ext;
+        can.rotation.y = initialAngle + angle + ext + swing;
         tilt.x += (tilt.tx - tilt.x) * Math.min(1, dt * 4);
         tilt.y += (tilt.ty - tilt.y) * Math.min(1, dt * 4);
         can.rotation.x = tilt.x;

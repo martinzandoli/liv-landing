@@ -1,20 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import Logo from "./Logo";
 import SignupForm from "./SignupForm";
 import { NAV } from "./Header";
 import { Headline, Reveal } from "./motion";
 
 export default function Cierre() {
-  const ref = useRef(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  const logoY = useTransform(scrollYProgress, [0.4, 1], [reduce ? "0%" : "35%", "0%"]);
-
   return (
-    <footer ref={ref} className="overflow-hidden bg-ink text-white">
+    <footer className="overflow-hidden bg-ink text-white">
       <section id="lista" className="mx-auto max-w-[1240px] px-5 pb-20 pt-24 md:px-8 md:pb-28 md:pt-36">
         <p className="rotulo text-white/55">Lista de espera</p>
         <Headline
@@ -65,14 +57,11 @@ export default function Cierre() {
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-[1240px] px-5 md:px-8">
-        <motion.div style={{ y: logoY }} className="pb-2 pt-4">
-          <Logo className="h-auto w-full text-white" />
-        </motion.div>
-      </div>
-      <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-[12px] text-white/45 md:px-8">
-        <span>© {new Date().getFullYear()} LIV</span>
-        <span className="rotulo">Disciplina × disfrute</span>
+      <div className="mx-auto max-w-[1240px] px-5 md:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 py-6 text-[12px] text-white/45">
+          <span>© {new Date().getFullYear()} LIV</span>
+          <span className="rotulo">Disciplina × disfrute</span>
+        </div>
       </div>
     </footer>
   );
