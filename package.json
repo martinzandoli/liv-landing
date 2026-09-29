@@ -8,14 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@vercel/blob": "latest",
+    "autoprefixer": "latest",
+    "framer-motion": "latest",
+    "lenis": "^1.3.26",
     "next": "latest",
+    "postcss": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
-    "postcss": "latest",
-    "autoprefixer": "latest",
-    "@vercel/blob": "latest",
-    "@tailwindcss/postcss": "latest",
-    "framer-motion": "latest"
+    "three": "^0.186.1"
   }
 }

@@ -2,59 +2,120 @@
 @import "tailwindcss";
 
 /* =========================================================
-   Paleta LIV Raspberry — muestreada del render de la lata
+   Marca madre LIV: blanco y negro (manual de marca v1.1).
+   El color lo ponen el sabor y la fotografía, nunca la marca.
    ========================================================= */
-:root {
-  --ink: #1a1614;        /* casi negro, cálido */
-  --cream: #f8f0e8;      /* cuerpo de la lata: superficie principal */
-  --cream-deep: #f0e6db; /* cream un paso más oscuro, para bloques */
-  --rose: #d29690;       /* acento de la lata: solo decorativo */
-  --rose-deep: #9c554e;  /* acento accesible: CTA, links (4.87:1 sobre cream) */
-  --pure: #ffffff;       /* blanco puro: cierre y footer */
+@theme inline {
+  --font-sans: var(--font-albert), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-surface: #f4f4f2;
+  --color-line: #dadad6;
+  --color-muted: #6f6e6a;
+
+  /* Sabor Raspberry: solo en la lata y en su comunicación */
+  --color-rasp: #8e1f4b;
+  --color-rasp-cream: #fbf3ef;
 }
 
-/* El canvas toma el color del cierre: al hacer overscroll al final
-   no aparece una franja de otro color debajo del footer. */
 html {
-  background: var(--pure);
-  scroll-behavior: smooth;
-  scroll-padding-top: 104px; /* alto del header sticky en mobile + aire */
-}
-
-@media (min-width: 768px) {
-  html {
-    scroll-padding-top: 80px;
-  }
+  background: #000; /* el cierre es negro: el overscroll no deja ver otro color */
+  scroll-padding-top: 88px;
 }
 
 body {
-  min-height: 100%;
   margin: 0;
-  padding: 0;
-  background: var(--cream);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip; /* evita scroll lateral sin romper position: sticky */
 }
 
-@layer base {
-  body {
-    @apply antialiased;
-    color: var(--ink);
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Acento: Fraunces Italic, una palabra por titular */
+.it {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* El cruce ×: siempre liviano */
+.cross {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 200;
+}
+
+/* Rótulo de la ficha */
+.rotulo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Marquesina infinita en CSS (la velocidad la ajusta JS con scroll) */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* ——— Regla de sección: filete fino de marca ——— */
-.rule {
-  height: 1px;
-  background: color-mix(in srgb, var(--ink) 12%, transparent);
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 40s linear infinite;
 }
 
-/* ——— Línea de callout para la anatomía de la lata ——— */
-.callout-line {
-  height: 1px;
-  background: color-mix(in srgb, var(--ink) 22%, transparent);
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -2%); }
+  60% { transform: translate(-2%, -4%); }
+  80% { transform: translate(4%, 2%); }
 }
-.callout-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 9999px;
-  background: var(--rose-deep);
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
