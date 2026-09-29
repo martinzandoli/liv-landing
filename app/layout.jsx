@@ -16,12 +16,17 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+// Dominio oficial en producción; en previews y en local, la URL de ese entorno
+const siteUrl =
+  process.env.VERCEL_ENV === "production"
+    ? "https://drinkliv.energy"
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: "LIV — Energy Drink",
   description:
     "Energy drink con gas en lata sleek de 355 mL: 100 mg de cafeína, 150 mg de L-teanina, cero azúcar. Primer sabor: Raspberry. Sumate a la lista.",
