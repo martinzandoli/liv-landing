@@ -7,19 +7,15 @@ import { EASE, Headline } from "./motion";
 const FAQ = [
   {
     q: "¿Qué es LIV?",
-    a: "Un energy drink con gas, en lata sleek de aluminio de 355 mL. Cada lata tiene 100 mg de cafeína y 150 mg de L-teanina, sin azúcar y sin calorías.",
+    a: "Un energy drink con gas, en lata sleek de aluminio de 355 mL. Cada lata tiene 100 mg de cafeína y 200 mg de L-teanina, sin azúcar y sin calorías.",
   },
   {
     q: "¿Cuánta cafeína tiene?",
-    a: "100 mg por lata, más o menos lo que tiene una taza de café. No está recomendado para niñas, niños, personas embarazadas o en período de lactancia, ni para personas sensibles a la cafeína.",
+    a: "100 mg por lata. No está recomendado para niñas, niños, personas embarazadas o en período de lactancia, ni para personas sensibles a la cafeína.",
   },
   {
     q: "¿Qué es la L-teanina?",
-    a: "Un aminoácido que está naturalmente en las hojas de té, donde viene junto a la cafeína. En LIV la sumamos para acompañar a la cafeína: 150 mg de L-teanina por cada 100 mg de cafeína, para una energía más pareja y sin sacudón.",
-  },
-  {
-    q: "¿Qué ingredientes tiene?",
-    a: "Agua con gas, saborizante, ácido cítrico, cafeína y L-teanina. Nada más.",
+    a: "Un aminoácido natural del té verde. En LIV va en proporción 1:2 con la cafeína: 200 mg de L-teanina por cada 100 mg de cafeína, la misma proporción que usan varios estudios sobre esta combinación.",
   },
   {
     q: "¿Tiene azúcar o calorías?",

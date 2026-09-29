@@ -29,11 +29,11 @@ export const metadata = {
   alternates: { canonical: "/" },
   title: "LIV — Energy Drink",
   description:
-    "Energy drink con gas en lata sleek de 355 mL: 100 mg de cafeína, 150 mg de L-teanina, cero azúcar. Primer sabor: Raspberry. Sumate a la lista.",
+    "Energy drink en lata sleek de 355 mL: 100 mg de cafeína, 200 mg de L-teanina, cero azúcar y cero calorías. Primer sabor: Raspberry. Sumate a la lista.",
   openGraph: {
     title: "LIV — Energía liviana",
-    description: "Energy drink con gas. 100 mg de cafeína, 150 mg de L-teanina, 0 azúcar. Primer sabor: Raspberry.",
-    images: ["/media/estudio.jpg"],
+    description: "Energy drink. 100 mg de cafeína, 200 mg de L-teanina, 0 azúcar. Primer sabor: Raspberry.",
+    images: ["/media/estudio-v2.jpg"],
     locale: "es_AR",
     type: "website",
   },

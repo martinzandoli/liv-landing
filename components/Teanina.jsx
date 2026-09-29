@@ -6,9 +6,18 @@ import Logo from "./Logo";
 import { EASE, Headline, Reveal } from "./motion";
 
 const PUNTOS = [
-  { r: "Del té", t: "Es el aminoácido característico de las hojas de té, donde ya viene junto a la cafeína." },
-  { r: "En equipo", t: "En LIV van juntas: 150 mg de L-teanina por cada 100 mg de cafeína." },
-  { r: "Sin sacudón", t: "La cafeína pone la energía; la L-teanina la acompaña para que se sienta más pareja." },
+  {
+    r: "La cafeína",
+    t: "Se une a los receptores de adenosina, la molécula que se acumula durante el día y avisa cansancio, y los bloquea. Por eso despierta.",
+  },
+  {
+    r: "La L-teanina",
+    t: "Aminoácido natural del té verde (Camellia sinensis). Llega al cerebro y se asocia a más ondas alfa, las de un estado de alerta relajado.",
+  },
+  {
+    r: "Juntas, 1:2",
+    t: "Es la proporción de LIV: 200 mg de L-teanina por cada 100 mg de cafeína. En estudios con voluntarios, esta combinación mostró mejor atención y foco que la cafeína sola.",
+  },
 ];
 
 /* La L-teanina en primer plano: dos círculos (áreas proporcionales a los mg) que se juntan con el scroll */
@@ -16,8 +25,8 @@ export default function Teanina() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "center 0.5"] });
-  const leftX = useTransform(scrollYProgress, [0, 1], reduce ? ["18%", "18%"] : ["-6%", "18%"]);
-  const rightX = useTransform(scrollYProgress, [0, 1], reduce ? ["-14%", "-14%"] : ["10%", "-14%"]);
+  const leftX = useTransform(scrollYProgress, [0, 1], reduce ? ["20%", "20%"] : ["-8%", "20%"]);
+  const rightX = useTransform(scrollYProgress, [0, 1], reduce ? ["-20%", "-20%"] : ["8%", "-20%"]);
   const logoOpacity = useTransform(scrollYProgress, [0.75, 1], [reduce ? 1 : 0, 1]);
   const logoScale = useTransform(scrollYProgress, [0.75, 1], [reduce ? 1 : 0.6, 1]);
 
@@ -32,8 +41,8 @@ export default function Teanina() {
           />
           <Reveal delay={0.15}>
             <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/70">
-              Es el ingrediente que hace a LIV distinta de un energizante común. Un aminoácido que está naturalmente en el té, sumado en
-              serio: 150 mg por lata.
+              Es el ingrediente que hace a LIV distinta de un energizante común: 200 mg de L-teanina por lata, el doble que de
+              cafeína.
             </p>
           </Reveal>
           <ul className="mt-10 border-t border-white">
@@ -51,37 +60,46 @@ export default function Teanina() {
               </motion.li>
             ))}
           </ul>
+          <p className="mt-5 text-[12px] leading-relaxed text-white/40">
+            Basado en: Owen et al., <span className="italic">Nutritional Neuroscience</span> (2008) · Kelly et al.,{" "}
+            <span className="italic">The Journal of Nutrition</span> (2008) · Nobre et al.,{" "}
+            <span className="italic">Asia Pacific Journal of Clinical Nutrition</span> (2008).
+          </p>
         </div>
 
-        {/* Diagrama: áreas proporcionales (150 mg = 1,5 × el área de 100 mg) */}
+        {/* Diagrama: áreas proporcionales (200 mg = 2 × el área de 100 mg) */}
         <div className="relative mx-auto w-full max-w-[560px]">
           <div className="relative aspect-[1.25/1] w-full">
             <motion.div
               style={{ x: leftX }}
-              className="absolute left-0 top-1/2 aspect-square w-[46%] -translate-y-1/2 rounded-full bg-white"
+              className="absolute left-0 top-1/2 aspect-square w-[40%] -translate-y-1/2 rounded-full bg-white"
             />
             <motion.div
               style={{ x: rightX }}
-              className="absolute right-0 top-1/2 aspect-square w-[56.3%] -translate-y-1/2 rounded-full bg-white mix-blend-difference"
+              className="absolute right-0 top-1/2 aspect-square w-[56.6%] -translate-y-1/2 rounded-full bg-white mix-blend-difference"
             />
             <motion.div
               style={{ opacity: logoOpacity, scale: logoScale }}
-              className="absolute left-[38.5%] top-1/2 w-[13%] -translate-y-1/2"
+              className="absolute left-[34.5%] top-1/2 w-[11%] -translate-y-1/2"
             >
               <Logo className="h-auto w-full text-white" />
             </motion.div>
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-6">
+          <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-end gap-6">
             <div>
               <p className="rotulo text-white/55">Cafeína</p>
               <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.02em] md:text-[44px]">
                 100<span className="ml-0.5 text-[0.45em] font-semibold">mg</span>
               </p>
             </div>
+            <div className="pb-1 text-center">
+              <p className="rotulo text-white/55">Proporción</p>
+              <p className="mt-1 text-[22px] font-extrabold leading-none md:text-[26px]">1:2</p>
+            </div>
             <div className="text-right">
               <p className="rotulo text-white/55">L-teanina</p>
               <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.02em] md:text-[44px]">
-                150<span className="ml-0.5 text-[0.45em] font-semibold">mg</span>
+                200<span className="ml-0.5 text-[0.45em] font-semibold">mg</span>
               </p>
             </div>
           </div>

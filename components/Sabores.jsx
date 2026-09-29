@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { LOGO_PATH } from "./Logo";
-import { EASE, Ficha, Headline, Reveal } from "./motion";
+import { EASE, Reveal } from "./motion";
 
 /* Tonos de exploración del manual de marca: cada sabor cambia solo su tono y su fondo */
 const PROXIMOS = [
@@ -19,22 +19,9 @@ export default function Sabores() {
   return (
     <section id="sabores" className="bg-white">
       <div className="mx-auto max-w-[1240px] px-5 py-24 md:px-8 md:py-36">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="rotulo text-muted">Sabores</p>
-            <Headline
-              className="mt-4 text-[clamp(40px,5.6vw,76px)] font-extrabold leading-[0.95] tracking-[-0.035em]"
-              parts={["Primer sabor:", { t: "Raspberry.", it: true }]}
-            />
-          </div>
-          <Reveal delay={0.15}>
-            <p className="max-w-[22rem] text-[16px] leading-relaxed text-ink/60">
-              Cada sabor tiene su color; la marca es una sola.
-            </p>
-          </Reveal>
-        </div>
+        <p className="rotulo text-muted">Sabores</p>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
           <RaspberryCard />
           <Reveal delay={0.1} className="h-full">
             <div className="flex h-full flex-col justify-between gap-8 rounded-[6px] bg-surface p-7 md:p-8">
@@ -110,7 +97,7 @@ function RaspberryCard() {
         <div aria-hidden className="absolute bottom-[4%] left-1/2 h-[5%] w-[46%] -translate-x-1/2 rounded-[50%] bg-[rgba(40,5,20,0.35)] blur-xl" />
         <motion.div style={{ rotateX: rx, rotateY: ry, x: tx }} className="absolute inset-x-0 inset-y-[6%]">
           <Image
-            src="/can/lata-raspberry-mate.png"
+            src="/can/lata-raspberry-mate-v2.png"
             alt="Lata de LIV Raspberry, 355 mL"
             fill
             sizes="(min-width: 1024px) 26vw, 50vw"
@@ -120,22 +107,8 @@ function RaspberryCard() {
       </div>
 
       <div className="relative z-10 order-1 flex flex-col justify-between gap-10 p-7 sm:h-full sm:min-h-[inherit] sm:w-[62%] md:p-10">
-        <div>
-          <p className="rotulo text-rasp/70">01 · Sale primero</p>
-          <h3 className="it mt-3 text-[clamp(52px,6.4vw,100px)] leading-[0.9] tracking-[-0.03em]">Raspberry</h3>
-          <p className="mt-5 max-w-[20rem] text-[16px] leading-relaxed text-rasp/80 md:text-[17px]">
-            Frambuesa seca y fresca, nada empalagosa, con un final cítrico.
-          </p>
-        </div>
-        <Ficha
-          tone="rasp"
-          nowrap
-          items={[
-            { r: "Fruta", v: "Frambuesa" },
-            { r: "Perfil", v: "Seco" },
-            { r: "Final", v: "Cítrico" },
-          ]}
-        />
+        <h3 className="it text-[clamp(52px,6.4vw,100px)] leading-[0.9] tracking-[-0.03em]">Raspberry</h3>
+        <p className="text-[26px] font-extrabold leading-none tracking-[-0.02em] md:text-[30px]">Frambuesa</p>
       </div>
     </motion.article>
   );

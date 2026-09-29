@@ -21,7 +21,7 @@ export default function Can3D({
   sway = 0, // balanceo suave alrededor del frente (radianes); reemplaza al giro continuo
   settle = false, // al soltarla después de arrastrar, vuelve sola al frente
   initialAngle = -0.35,
-  label = "/can/etiqueta-raspberry.jpg",
+  label = "/can/etiqueta-raspberry-v2.jpg",
   className = "",
   ariaLabel = "Lata de LIV Raspberry, 355 mL, en 3D",
   onReady,

@@ -6,10 +6,10 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "fr
 import { Headline } from "./motion";
 
 const MOMENTOS = [
-  { hora: "15:00", lugar: "Oficina", img: "/media/oficina.jpg", pos: "60% 50%" },
-  { hora: "18:30", lugar: "Pre-gym", img: "/media/pregym.jpg", pos: "50% 30%" },
-  { hora: "19:15", lugar: "Entrenamiento", img: "/media/gimnasio.jpg", pos: "50% 50%" },
-  { hora: "Sábado", lugar: "En casa", img: "/media/bodegon.jpg", pos: "45% 60%" },
+  { hora: "15:00", lugar: "Oficina", img: "/media/oficina-v2.jpg", pos: "60% 50%" },
+  { hora: "18:30", lugar: "Pre-gym", img: "/media/pregym-v2.jpg", pos: "50% 30%" },
+  { hora: "19:15", lugar: "Entrenamiento", img: "/media/gimnasio-v2.jpg", pos: "50% 50%" },
+  { hora: "Sábado", lugar: "En casa", img: "/media/bodegon-v2.jpg", pos: "45% 60%" },
 ];
 
 /* Galería horizontal que avanza con el scroll vertical */

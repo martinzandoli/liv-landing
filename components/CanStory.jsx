@@ -14,9 +14,13 @@ import Can3D from "./Can3D";
 import { EASE, Headline } from "./motion";
 
 const STEPS = [
-  { k: "Con gas", v: "Burbuja fina", d: "Para tomarla bien fría, a cualquier hora del día." },
-  { k: "Cafeína", v: "100 mg", d: "Más o menos lo que tiene una taza de café." },
-  { k: "L-teanina", v: "150 mg", d: "El aminoácido del té que acompaña a la cafeína, para una energía más calma." },
+  { k: "Cafeína", v: "100 mg", d: "Bloquea la adenosina, la señal de cansancio que se acumula durante el día.", big: true },
+  {
+    k: "L-teanina",
+    v: "200 mg",
+    d: "Aminoácido natural del té verde. Va en proporción 1:2 con la cafeína, la misma que usan los estudios sobre esta combinación.",
+    big: true,
+  },
   { k: "Azúcar", v: "0 g · 0 kcal", d: "Cero azúcar y cero calorías." },
   { k: "Formato", v: "Sleek 355\u00a0mL", d: "Lata de aluminio, liviana y reciclable." },
 ];
@@ -26,8 +30,8 @@ export default function CanStory() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  // Frente → costado → dorso (ingredientes) → costado → frente
-  const raw = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8, 1], [-0.25, 0.7, 2.6, 3.4, 5.2, 6.2]);
+  // Frente → costado → dorso (tabla con la L-teanina) → costado → frente
+  const raw = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [-0.25, 1.2, 3.1, 4.6, 6.2]);
   const spin = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
   const [step, setStep] = useState(0);
   useMotionValueEvent(scrollYProgress, "change", (p) => {
@@ -42,9 +46,8 @@ export default function CanStory() {
         {/* Grilla: en vertical se apilan título / lata / dato / progreso; apaisado, tres columnas */}
         <div className="mx-auto grid h-full w-full max-w-[1240px] grid-cols-1 2xl:max-w-[1560px] grid-rows-[auto_minmax(0,1fr)_auto_auto] px-5 pb-5 pt-[76px] md:px-8 md:pt-[88px] wide:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] wide:grid-rows-[minmax(0,1fr)_auto] wide:gap-x-8 wide:pb-7">
           <div className="wide:col-start-1 wide:row-start-1 wide:self-center">
-            <p className="rotulo text-muted">La lata</p>
             <Headline
-              className="mt-2 text-[clamp(28px,min(8.6vw,5.2svh),48px)] font-extrabold leading-[0.95] tracking-[-0.035em] wide:mt-3 wide:max-w-[6.6em] wide:text-[clamp(30px,min(4vw,7svh),84px)]"
+              className="text-[clamp(28px,min(8.6vw,5.2svh),48px)] font-extrabold leading-[0.95] tracking-[-0.035em] wide:max-w-[6.6em] wide:text-[clamp(30px,min(4vw,7svh),84px)]"
               parts={["Todo lo que necesitás.", { t: "Nada", it: true }, "más."]}
             />
           </div>
@@ -57,7 +60,7 @@ export default function CanStory() {
           </div>
 
           {/* Dato activo: alto fijo en vertical para que la lata no salte entre pasos */}
-          <div className="relative h-[8.5rem] md:h-[9.5rem] wide:col-start-3 wide:row-start-1 wide:h-auto wide:self-center">
+          <div className="relative h-[10rem] md:h-[11rem] wide:col-start-3 wide:row-start-1 wide:h-auto wide:self-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -70,7 +73,14 @@ export default function CanStory() {
                 <p className="rotulo text-muted">
                   {String(step + 1).padStart(2, "0")} <span className="mx-1">/</span> {s.k}
                 </p>
-                <p className="mt-2 text-[clamp(28px,min(8vw,4.6svh),44px)] font-extrabold leading-none tracking-[-0.03em] wide:text-[clamp(28px,min(3.8vw,6.5svh),72px)]">
+                <p
+                  className={
+                    "mt-2 font-extrabold leading-none tracking-[-0.03em] " +
+                    (s.big
+                      ? "text-[clamp(40px,min(12vw,6.8svh),64px)] wide:text-[clamp(44px,min(6vw,10svh),120px)]"
+                      : "text-[clamp(28px,min(8vw,4.6svh),44px)] wide:text-[clamp(28px,min(3.8vw,6.5svh),72px)]")
+                  }
+                >
                   {s.v}
                 </p>
                 <p className="mt-2.5 max-w-[26rem] text-pretty text-[15px] leading-snug text-ink/65 md:text-[17px] wide:mt-3 wide:text-[clamp(15px,min(1.25vw,2.2svh),22px)]">
