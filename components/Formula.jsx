@@ -25,7 +25,7 @@ export default function Formula() {
           />
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-[26rem] text-[17px] leading-relaxed text-ink/65">
-              Cafeína y L-teanina en proporción 1:2, sin azúcar y sin calorías. Datos que se pueden verificar, no promesas.
+              Cafeína y L-⁠teanina en proporción 1:2, sin azúcar y sin calorías. Datos que se pueden verificar, no promesas.
             </p>
           </Reveal>
           <Reveal delay={0.3} className="mt-10">

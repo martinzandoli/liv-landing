@@ -7,7 +7,7 @@ import { EASE, Headline } from "./motion";
 const FAQ = [
   {
     q: "¿Qué es LIV?",
-    a: "Un energy drink con gas, en lata sleek de aluminio de 355 mL. Cada lata tiene 100 mg de cafeína y 200 mg de L-teanina, sin azúcar y sin calorías.",
+    a: "Un energy drink con gas, en lata sleek de aluminio de 355 mL. Cada lata tiene 100 mg de cafeína y 200 mg de L-⁠teanina, sin azúcar y sin calorías.",
   },
   {
     q: "¿Cuánta cafeína tiene?",
@@ -15,7 +15,7 @@ const FAQ = [
   },
   {
     q: "¿Qué es la L-teanina?",
-    a: "Un aminoácido natural del té verde. En LIV va en proporción 1:2 con la cafeína: 200 mg de L-teanina por cada 100 mg de cafeína, la misma proporción que usan varios estudios sobre esta combinación.",
+    a: "Un aminoácido natural del té verde. En LIV va en proporción 1:2 con la cafeína: 200 mg de L-⁠teanina por cada 100 mg de cafeína, la misma proporción que usan varios estudios sobre esta combinación.",
   },
   {
     q: "¿Tiene azúcar o calorías?",
