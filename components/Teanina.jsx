@@ -17,22 +17,23 @@ const PUNTOS = [
   },
   {
     r: "Juntas, 1:2",
-    t: "Es la proporción de LIV: 200 mg de L-teanina por cada 100 mg de cafeína. En estudios con voluntarios, esta combinación mostró mejor atención y foco que la cafeína sola.",
+    t: "Es la proporción de LIV: 200 mg de L-⁠teanina por cada 100 mg de cafeína. En estudios con voluntarios, esta combinación mostró mejor atención y foco que la cafeína sola.",
   },
 ];
 
 /* La L-teanina en primer plano: dos círculos (áreas proporcionales a los mg) que se juntan con el scroll */
 export default function Teanina() {
-  const ref = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "center 0.5"] });
+  const diagrama = useRef(null);
+  // La animación va atada al diagrama (no a toda la sección): se completa apenas está bien en pantalla
+  const { scrollYProgress } = useScroll({ target: diagrama, offset: ["start 0.95", "start 0.45"] });
   const leftX = useTransform(scrollYProgress, [0, 1], reduce ? ["20%", "20%"] : ["-8%", "20%"]);
   const rightX = useTransform(scrollYProgress, [0, 1], reduce ? ["-20%", "-20%"] : ["8%", "-20%"]);
   const logoOpacity = useTransform(scrollYProgress, [0.75, 1], [reduce ? 1 : 0, 1]);
   const logoScale = useTransform(scrollYProgress, [0.75, 1], [reduce ? 1 : 0.6, 1]);
 
   return (
-    <section ref={ref} id="teanina" className="bg-ink text-white">
+    <section id="teanina" className="bg-ink text-white">
       <div className="mx-auto max-w-[1240px] px-5 py-24 md:px-8 md:py-36">
         <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
@@ -42,8 +43,8 @@ export default function Teanina() {
               parts={["La cafeína pone la energía. La L-teanina, la", { t: "calma.", it: true }]}
             />
             <Reveal delay={0.15}>
-              <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/70">
-                Es el ingrediente que hace a LIV distinta de un energizante común: 200 mg de L-teanina por lata, el doble que de
+              <p className="mt-6 max-w-[30rem] text-pretty text-[18px] leading-relaxed text-white/70">
+                Es el ingrediente que hace a LIV distinta de un energizante común: 200 mg de L-⁠teanina por lata, el doble que de
                 cafeína.
               </p>
             </Reveal>
@@ -70,7 +71,7 @@ export default function Teanina() {
           </div>
   
           {/* Diagrama: áreas proporcionales (200 mg = 2 × el área de 100 mg) */}
-          <div className="relative mx-auto w-full max-w-[560px]">
+          <div ref={diagrama} className="relative mx-auto w-full max-w-[560px]">
             <div className="relative aspect-[1.25/1] w-full">
               <motion.div
                 style={{ x: leftX }}

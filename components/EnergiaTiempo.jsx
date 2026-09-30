@@ -139,8 +139,8 @@ export default function EnergiaTiempo() {
           parts={["Energía, pero", { t: "pareja.", it: true }]}
         />
         <Reveal delay={0.15}>
-          <p className="mt-6 max-w-[28rem] text-[17px] leading-relaxed text-white/70">
-            Un energizante común sube de golpe y después se cae. LIV combina 100 mg de cafeína con 200 mg de L-teanina y cero
+          <p className="mt-6 max-w-[28rem] text-pretty text-[17px] leading-relaxed text-white/70">
+            Un energizante común sube de golpe y después se cae. LIV combina 100 mg de cafeína con 200 mg de L-⁠teanina y cero
             azúcar, para una energía que se siente más pareja.
           </p>
         </Reveal>
