@@ -87,7 +87,7 @@ export default function VideoFilm() {
   const mob = useAutoVideo(reduce);
 
   return (
-    <section ref={ref} aria-label="Video: la lata de LIV Raspberry girando" className="bg-white">
+    <section ref={ref} aria-label="Video: la lata de LIV Raspberry girando" className="bg-ink">
       {/* Escritorio: video a todo el ancho, texto a la izquierda */}
       <motion.div style={{ clipPath: clip }} className="relative hidden h-[min(100svh,960px)] min-h-[600px] overflow-hidden md:block">
         <video
@@ -126,13 +126,13 @@ export default function VideoFilm() {
 
       {/* Mobile: texto arriba, video vertical abajo */}
       <div className="md:hidden">
-        <div className="px-5 pb-8 pt-20">
-          <p className="rotulo text-muted">En estudio · 360°</p>
+        <div className="px-5 pb-8 pt-20 text-white">
+          <p className="rotulo text-white/55">En estudio · 360°</p>
           <Headline
             className="mt-4 text-[44px] font-extrabold leading-[0.92] tracking-[-0.04em]"
             parts={["La parte", { t: "linda", it: true }, "de cuidarte."]}
           />
-          <p className="mt-5 text-[16px] leading-relaxed text-ink/70">
+          <p className="mt-5 text-[16px] leading-relaxed text-white/70">
             Una lata fría, liviana y lista para ir con vos. Adelante está la marca; atrás, todo lo que tiene.
           </p>
         </div>
