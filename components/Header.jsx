@@ -10,7 +10,6 @@ export const NAV = [
   { href: "#teanina", label: "Fórmula" },
   { href: "#momentos", label: "Momentos" },
   { href: "#sabores", label: "Sabores" },
-  { href: "#faq", label: "Preguntas" },
 ];
 
 export default function Header() {

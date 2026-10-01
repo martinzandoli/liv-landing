@@ -7,7 +7,6 @@ import Momentos from "@/components/Momentos";
 import VideoFilm from "@/components/VideoFilm";
 import Sabores from "@/components/Sabores";
 import Comunidad from "@/components/Comunidad";
-import Faq from "@/components/Faq";
 import Cierre from "@/components/Cierre";
 
 export default function Page() {
@@ -23,7 +22,6 @@ export default function Page() {
         <VideoFilm />
         <Sabores />
         <Comunidad />
-        <Faq />
       </main>
       <Cierre />
     </>
