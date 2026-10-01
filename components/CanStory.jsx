@@ -1,79 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useScroll, useSpring } from "framer-motion";
-import PourScene from "./PourScene";
-import { crearSonidoVertido } from "./three/sonidoVertido";
+import { useRef } from "react";
+import { useScroll, useSpring, useTransform } from "framer-motion";
+import CanAgua from "./CanAgua";
+import OlaAgua from "./OlaAgua";
 import { Headline } from "./motion";
 
-/* Transición: el título y la lata, que con el scroll se inclina y sirve la soda en un vaso de vidrio.
-   El sonido del vertido es opcional (los navegadores sólo dejan reproducir audio después de un click). */
+const REPOSO = -0.2; // ángulo de la lata quieta (casi de frente)
+const clamp01 = (v) => Math.min(1, Math.max(0, v));
+
+/* Transición entre secciones: los bordes entran como agua y la lata, fría, gira y despide gotas.
+   Al entrar da dos vueltas y frena de frente; al salir vuelve a girar. */
 export default function CanStory() {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const progreso = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.5 });
-
-  const [sonido, setSonido] = useState(null);
-  const [conSonido, setConSonido] = useState(false);
-
-  const alternarSonido = () => {
-    let motor = sonido;
-    if (!motor) {
-      motor = crearSonidoVertido();
-      if (!motor) return;
-      setSonido(motor);
-    }
-    if (conSonido) motor.apagar();
-    else motor.encender();
-    setConSonido(!conSonido);
-  };
-
-  useEffect(() => () => sonido?.cerrar(), [sonido]);
+  const slotRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const giro = useTransform(scrollYProgress, (p) => {
+    const entra = 1 - (1 - clamp01((p - 0.08) / 0.37)) ** 2; // frena al llegar
+    const sale = clamp01((p - 0.6) / 0.36) ** 2; // arranca al irse
+    return REPOSO - Math.PI * 4 * (1 - entra) + Math.PI * 3 * sale;
+  });
+  const spin = useSpring(giro, { stiffness: 70, damping: 20, mass: 0.6 });
 
   return (
-    <section id="lata" ref={ref} className="relative h-[300vh] bg-surface">
+    <section id="lata" ref={ref} className="relative h-[200vh] bg-surface py-[56px] md:py-[72px]">
+      <OlaAgua lado="arriba" className="absolute inset-x-0 top-0 z-10 h-[56px] md:h-[72px]" />
+
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        {/* En vertical: título arriba y escena abajo; apaisado: título a la izquierda y escena a la derecha */}
-        <div className="mx-auto grid h-full w-full max-w-[1240px] grid-cols-1 grid-rows-[auto_minmax(0,1fr)] px-5 pb-6 pt-[84px] md:px-8 md:pt-[96px] 2xl:max-w-[1560px] wide:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] wide:grid-rows-1 wide:gap-x-10 wide:pb-10">
-          <div className="flex flex-col items-start gap-4 wide:justify-center">
+        <div className="absolute inset-0">
+          <CanAgua spin={spin} slotRef={slotRef} className="h-full w-full" />
+        </div>
+
+        {/* En vertical: título arriba y lata abajo; apaisado: título a la izquierda y lata a la derecha */}
+        <div className="pointer-events-none relative mx-auto grid h-full w-full max-w-[1240px] grid-cols-1 grid-rows-[auto_minmax(0,1fr)] px-5 pb-6 pt-[84px] md:px-8 md:pt-[96px] 2xl:max-w-[1560px] wide:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] wide:grid-rows-1 wide:gap-x-10 wide:pb-10">
+          <div className="wide:self-center">
             <Headline
               className="text-[clamp(34px,min(10vw,6svh),56px)] font-extrabold leading-[0.95] tracking-[-0.035em] wide:text-[clamp(40px,min(5.6vw,10svh),112px)]"
               parts={["Todo lo que", { br: "hidden wide:block" }, "necesitás.", { br: true }, { t: "Nada", it: true }, "más."]}
             />
-            <button
-              type="button"
-              onClick={alternarSonido}
-              aria-pressed={conSonido}
-              className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/15 bg-paper/70 px-3.5 py-2 text-[13px] font-semibold text-ink/75 backdrop-blur transition hover:border-ink/40 hover:text-ink wide:mt-10"
-            >
-              <Parlante activo={conSonido} />
-              <span>{conSonido ? "Sonido activado" : "Activar sonido"}</span>
-            </button>
           </div>
-
-          <div className="relative min-h-0">
-            <div className="absolute inset-0">
-              <PourScene progreso={progreso} sonido={conSonido ? sonido : null} className="h-full w-full" />
-            </div>
-          </div>
+          <div ref={slotRef} className="min-h-0" />
         </div>
       </div>
-    </section>
-  );
-}
 
-function Parlante({ activo }) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" stroke="none" />
-      {activo ? (
-        <>
-          <path d="M15.5 9a4.2 4.2 0 0 1 0 6" />
-          <path d="M18.2 6.5a7.8 7.8 0 0 1 0 11" />
-        </>
-      ) : (
-        <path d="M16 9.5l5 5M21 9.5l-5 5" />
-      )}
-    </svg>
+      <OlaAgua lado="abajo" className="absolute inset-x-0 bottom-0 z-10 h-[56px] md:h-[72px]" />
+    </section>
   );
 }

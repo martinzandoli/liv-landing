@@ -56,10 +56,8 @@ const rounded = (s, x, y, w, h, r) => {
   s.quadraticCurveTo(x, y, x + r, y);
 };
 
-/* Lata completa. `boca`: hacia dónde mira la apertura (rad, desde el frente +z hacia +x);
-   si se pasa, la lata se dibuja abierta (apertura oscura) y devuelve el punto local por donde sale el líquido.
-   Sin `boca`, la tapa queda como en el hero (la apertura, cerrada, mira hacia atrás). */
-export function crearLata(THREE, { mate = false, boca = null } = {}) {
+/* Lata completa. La apertura (cerrada) mira hacia atrás, como en el hero. */
+export function crearLata(THREE, { mate = false } = {}) {
   const can = new THREE.Group();
   const yT = Y_TOP;
   const yB = Y_BOT;
@@ -99,11 +97,8 @@ export function crearLata(THREE, { mate = false, boca = null } = {}) {
   ];
   can.add(new THREE.Mesh(new THREE.LatheGeometry(bottom, 160), metalDark));
 
-  // Anilla, contorno de la apertura y remache. La apertura mira hacia `boca` (por defecto, al frente).
-  // la apertura está modelada mirando a -z (ángulo π); se gira la tapa para orientarla
-  const giro = boca === null ? 0 : boca - Math.PI;
+  // Anilla, contorno de la apertura y remache
   const tapa = new THREE.Group();
-  tapa.rotation.y = giro;
   can.add(tapa);
 
   const tabShape = new THREE.Shape();
@@ -130,26 +125,11 @@ export function crearLata(THREE, { mate = false, boca = null } = {}) {
   scoreMesh.position.set(0, yT + 1.016, 0.35);
   tapa.add(scoreMesh);
 
-  let bocaLocal = null;
-  if (boca !== null) {
-    // Lata abierta: la apertura es un hueco oscuro dentro del contorno
-    const apertura = new THREE.Shape();
-    rounded(apertura, -0.49, 0.61, 0.98, 0.93, 0.45);
-    const aperturaGeo = new THREE.ShapeGeometry(apertura, 20);
-    aperturaGeo.rotateX(-Math.PI / 2);
-    const aperturaMesh = new THREE.Mesh(aperturaGeo, new THREE.MeshStandardMaterial({ color: 0x1a1214, roughness: 0.6 }));
-    aperturaMesh.position.set(0, yT + 1.02, 0.35);
-    tapa.add(aperturaMesh);
-    // punto por donde sale el líquido: el borde de la apertura más cercano al reborde
-    bocaLocal = new THREE.Vector3(0, yT + 1.08, 0.35 - 1.62);
-    bocaLocal.applyAxisAngle(new THREE.Vector3(0, 1, 0), giro);
-  }
-
   const rivet = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.15, 0.06, 32), metal);
   rivet.position.set(0, yT + 1.05, 0);
   can.add(rivet);
 
-  return { group: can, labelMat, bocaLocal };
+  return { group: can, labelMat };
 }
 
 /* Sombra de contacto: plano con un degradé radial */
