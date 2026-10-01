@@ -15,10 +15,6 @@ const PUNTOS = [
     r: "La L-teanina",
     t: "Aminoácido natural del té verde (Camellia sinensis). Llega al cerebro y se asocia a más ondas alfa, las de un estado de alerta relajado.",
   },
-  {
-    r: "Juntas, 1:2",
-    t: "Es la proporción de LIV: 200 mg de L-⁠teanina por cada 100 mg de cafeína. En estudios con voluntarios, esta combinación mostró mejor atención y foco que la cafeína sola.",
-  },
 ];
 
 /* La L-teanina en primer plano: dos círculos (áreas proporcionales a los mg) que se juntan con el scroll */

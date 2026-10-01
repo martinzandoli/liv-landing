@@ -140,8 +140,8 @@ export default function EnergiaTiempo() {
         />
         <Reveal delay={0.15}>
           <p className="mt-6 max-w-[28rem] text-pretty text-[17px] leading-relaxed text-white/70">
-            Un energizante común sube de golpe y después se cae. LIV combina 100 mg de cafeína con 200 mg de L-⁠teanina y cero
-            azúcar, para una energía que se siente más pareja.
+            Un energizante común sube de golpe y después se cae. Juntas, la cafeína y la L-⁠teanina dan una energía que se siente
+            más pareja: en estudios con voluntarios, la combinación mostró mejor atención y foco que la cafeína sola.
           </p>
         </Reveal>
         <p className="mt-6 max-w-[28rem] text-[12px] leading-relaxed text-white/40">
