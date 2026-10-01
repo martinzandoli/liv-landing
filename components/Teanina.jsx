@@ -4,18 +4,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import EnergiaTiempo from "./EnergiaTiempo";
 import Logo from "./Logo";
-import { EASE, Headline, Reveal } from "./motion";
-
-const PUNTOS = [
-  {
-    r: "La cafeína",
-    t: "Se une a los receptores de adenosina, la molécula que se acumula durante el día y avisa cansancio, y los bloquea. Por eso despierta.",
-  },
-  {
-    r: "La L-teanina",
-    t: "Aminoácido natural del té verde (Camellia sinensis). Llega al cerebro y se asocia a más ondas alfa, las de un estado de alerta relajado.",
-  },
-];
+import { Headline, Reveal } from "./motion";
 
 /* La L-teanina en primer plano: dos círculos (áreas proporcionales a los mg) que se juntan con el scroll */
 export default function Teanina() {
@@ -40,32 +29,12 @@ export default function Teanina() {
             />
             <Reveal delay={0.15}>
               <p className="mt-6 max-w-[30rem] text-pretty text-[18px] leading-relaxed text-white/70">
-                Es el ingrediente que hace a LIV distinta de un energizante común: 200 mg de L-⁠teanina por lata, el doble que de
-                cafeína.
+                Es lo que hace a LIV distinta de un energizante común: la L-⁠teanina, un aminoácido natural del té verde,
+                acompaña a la cafeína para que la energía llegue con calma.
               </p>
             </Reveal>
-            <ul className="mt-10 border-t border-white">
-              {PUNTOS.map((p, i) => (
-                <motion.li
-                  key={p.r}
-                  initial={reduce ? false : { opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.6 }}
-                  transition={{ duration: 0.7, ease: EASE, delay: 0.1 + i * 0.08 }}
-                  className="grid grid-cols-[120px_1fr] gap-4 border-b border-white/15 py-5 md:grid-cols-[150px_1fr]"
-                >
-                  <span className="rotulo pt-1 text-white">{p.r}</span>
-                  <span className="text-[16px] leading-relaxed text-white/70">{p.t}</span>
-                </motion.li>
-              ))}
-            </ul>
-            <p className="mt-5 text-[12px] leading-relaxed text-white/40">
-              Basado en: Owen et al., <span className="italic">Nutritional Neuroscience</span> (2008) · Kelly et al.,{" "}
-              <span className="italic">The Journal of Nutrition</span> (2008) · Nobre et al.,{" "}
-              <span className="italic">Asia Pacific Journal of Clinical Nutrition</span> (2008).
-            </p>
           </div>
-  
+
           {/* Diagrama: áreas proporcionales (200 mg = 2 × el área de 100 mg) */}
           <div ref={diagrama} className="relative mx-auto w-full max-w-[560px]">
             <div className="relative aspect-[1.25/1] w-full">
