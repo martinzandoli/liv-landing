@@ -17,14 +17,14 @@ const PROXIMOS = [
 export default function Sabores() {
   const reduce = useReducedMotion();
   return (
-    <section id="sabores" className="bg-white">
+    <section id="sabores" className="bg-surface">
       <div className="mx-auto max-w-[1240px] px-5 py-24 md:px-8 md:py-36">
         <p className="rotulo text-muted">Sabores</p>
 
         <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
           <RaspberryCard />
           <Reveal delay={0.1} className="h-full">
-            <div className="flex h-full flex-col justify-between gap-8 rounded-[6px] bg-surface p-7 md:p-8">
+            <div className="flex h-full flex-col justify-between gap-8 rounded-[6px] bg-white p-7 md:p-8">
               <p className="rotulo text-muted">Próximos sabores</p>
               <div className="grid flex-1 grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
                 {PROXIMOS.map((s, i) => (

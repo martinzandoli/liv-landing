@@ -8,13 +8,18 @@ export const EASE = [0.2, 0.7, 0.1, 1];
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /* Titular que entra palabra por palabra desde abajo.
-   `parts`: strings o { t, it } (itálica Fraunces) / { t, cross } (el ×). */
+   `parts`: strings o { t, it } (itálica Fraunces) / { t, cross } (el ×) /
+   { br: "clases" } (salto de línea forzado; las clases deciden en qué pantallas, p. ej. "hidden wide:block"). */
 export function Headline({ as = "h2", parts, className = "", delay = 0, stagger = 0.06, immediate = false }) {
   const reduce = useReducedMotion();
   const Tag = motion[as];
   const words = [];
   parts.forEach((p) => {
     const part = typeof p === "string" ? { t: p } : p;
+    if (part.br) {
+      words.push(part);
+      return;
+    }
     part.t
       .split(" ")
       .filter(Boolean)
@@ -30,22 +35,26 @@ export function Headline({ as = "h2", parts, className = "", delay = 0, stagger 
       {...trigger}
       transition={{ staggerChildren: stagger, delayChildren: delay }}
     >
-      {words.map((w, i) => (
-        <span key={i}>
-          <span className={"inline-block overflow-hidden align-top pb-[0.14em] -mb-[0.14em] " + (w.it ? "pr-[0.09em] -mr-[0.09em]" : "")}>
-            <motion.span
-              className={"inline-block " + (w.it ? "it" : w.cross ? "cross" : "")}
-              variants={{
-                hidden: { y: "115%", rotate: 4 },
-                show: { y: "0%", rotate: 0, transition: { duration: 0.9, ease: EASE } },
-              }}
-            >
-              {w.t}
-            </motion.span>
+      {words.map((w, i) =>
+        w.br ? (
+          <span key={i} aria-hidden className={w.br === true ? "block" : w.br} />
+        ) : (
+          <span key={i}>
+            <span className={"inline-block overflow-hidden align-top pb-[0.14em] -mb-[0.14em] " + (w.it ? "pr-[0.09em] -mr-[0.09em]" : "")}>
+              <motion.span
+                className={"inline-block " + (w.it ? "it" : w.cross ? "cross" : "")}
+                variants={{
+                  hidden: { y: "115%", rotate: 4 },
+                  show: { y: "0%", rotate: 0, transition: { duration: 0.9, ease: EASE } },
+                }}
+              >
+                {w.t}
+              </motion.span>
+            </span>
+            {i < words.length - 1 && " "}
           </span>
-          {i < words.length - 1 && " "}
-        </span>
-      ))}
+        )
+      )}
     </Tag>
   );
 }

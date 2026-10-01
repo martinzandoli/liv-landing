@@ -42,7 +42,7 @@ export default function Momentos() {
     <section
       id="momentos"
       ref={ref}
-      className="relative bg-ink text-white"
+      className="relative bg-white text-ink"
       style={{ height: reduce ? "auto" : `calc(100svh + ${dist}px)` }}
     >
       <div
@@ -55,17 +55,17 @@ export default function Momentos() {
         <motion.div ref={track} style={{ x: reduce ? 0 : x }} className="flex w-max items-stretch gap-5 px-5 md:gap-7 md:px-8">
           {/* Portada */}
           <div className="flex w-[82vw] shrink-0 flex-col justify-between py-2 sm:w-[60vw] lg:w-[38vw]">
-            <p className="rotulo text-white/55">Momentos</p>
+            <p className="rotulo text-muted">Momentos</p>
             <div>
               <Headline
                 className="text-[clamp(48px,7vw,104px)] font-extrabold leading-[0.9] tracking-[-0.04em]"
                 parts={["Oficina", { t: "×", cross: true }, { t: "gimnasio.", it: true }]}
               />
-              <p className="mt-6 max-w-[24rem] text-[17px] leading-relaxed text-white/65">
+              <p className="mt-6 max-w-[24rem] text-[17px] leading-relaxed text-ink/65">
                 LIV acompaña el día entero, no solo el entrenamiento. Seguí bajando.
               </p>
             </div>
-            <p className="rotulo text-white/40">→</p>
+            <p className="rotulo text-ink/40">→</p>
           </div>
 
           {MOMENTOS.map((m, i) => (
@@ -75,13 +75,13 @@ export default function Momentos() {
           {/* Cierre */}
           <a
             href="#lista"
-            className="group flex w-[70vw] shrink-0 flex-col justify-between rounded-[6px] bg-white p-7 text-ink sm:w-[44vw] lg:w-[26vw]"
+            className="group flex w-[70vw] shrink-0 flex-col justify-between rounded-[6px] bg-ink p-7 text-white sm:w-[44vw] lg:w-[26vw]"
           >
-            <p className="rotulo text-muted">¿Cuál es el tuyo?</p>
+            <p className="rotulo text-white/55">¿Cuál es el tuyo?</p>
             <p className="text-[clamp(34px,3.6vw,52px)] font-extrabold leading-[0.95] tracking-[-0.03em]">
               Sumate a la <span className="it font-normal">lista.</span>
             </p>
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-ink text-xl text-white transition-transform duration-300 group-hover:translate-x-2">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl text-ink transition-transform duration-300 group-hover:translate-x-2">
               →
             </span>
           </a>
@@ -105,7 +105,7 @@ function Card({ m, i, progress, total, reduce }) {
           <span className="rounded-full bg-white px-3 py-1 text-[12px] font-bold tabular-nums text-ink">{m.hora}</span>
           <span className="rotulo text-white/80">{String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
         </div>
-        <figcaption className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+        <figcaption className="absolute inset-x-0 bottom-0 p-5 text-white md:p-6">
           <p className="text-[clamp(30px,3vw,44px)] font-extrabold leading-none tracking-[-0.03em]">{m.lugar}</p>
         </figcaption>
       </div>

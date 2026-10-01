@@ -1,110 +1,72 @@
 "use client";
 
-import { useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import Can3D from "./Can3D";
-import { EASE, Headline } from "./motion";
+import { useEffect, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { Headline } from "./motion";
 
-const STEPS = [
-  { k: "Cafeína", v: "100 mg", d: "Bloquea la adenosina, la señal de cansancio que se acumula durante el día.", big: true },
-  {
-    k: "L-teanina",
-    v: "200 mg",
-    d: "Aminoácido natural del té verde. Va en proporción 1:2 con la cafeína, la misma que usan los estudios sobre esta combinación.",
-    big: true,
-  },
-  { k: "Azúcar", v: "0 g · 0 kcal", d: "Cero azúcar y cero calorías." },
-  { k: "Formato", v: "Sleek 355\u00a0mL", d: "Lata de aluminio, liviana y reciclable." },
-];
+// El fondo del video es el mismo gris de la sección; igual se difuminan los cuatro bordes para que no
+// se note el corte en ninguna pantalla (cada navegador decodifica el color un poco distinto)
+const BORDES = [
+  "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent)",
+  "linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent)",
+].join(", ");
+const BORDES_SUAVES = {
+  WebkitMaskImage: BORDES,
+  maskImage: BORDES,
+  WebkitMaskComposite: "source-in",
+  maskComposite: "intersect",
+};
 
-/* Sección fija: la lata gira con el scroll y los datos aparecen de a uno */
+/* Transición: el título y la lata con agua real fluyendo alrededor (video en loop, sin sonido).
+   El video se reproduce sólo mientras está en pantalla; con "reducir movimiento" queda el póster. */
 export default function CanStory() {
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  // Frente → costado → dorso (tabla con la L-teanina) → costado → frente
-  const raw = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [-0.25, 1.2, 3.1, 4.6, 6.2]);
-  const spin = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
-  const [step, setStep] = useState(0);
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    setStep(Math.min(STEPS.length - 1, Math.max(0, Math.floor(p * STEPS.length * 0.999))));
-  });
-  const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const s = STEPS[step];
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  // entra un poco más grande y se asienta; al irse se aleja apenas
+  const escala = useTransform(scrollYProgress, [0, 0.38, 0.62, 1], reduce ? [1, 1, 1, 1] : [1.14, 1, 1, 0.96]);
+  const opacidad = useTransform(scrollYProgress, [0.05, 0.3], reduce ? [1, 1] : [0, 1]);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || reduce) return;
+    v.muted = true;
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), { threshold: 0.1 });
+    io.observe(v);
+    return () => io.disconnect();
+  }, [reduce]);
 
   return (
-    <section id="lata" ref={ref} className="relative bg-surface" style={{ height: `${STEPS.length * 85 + 60}vh` }}>
+    <section id="lata" ref={ref} className="relative h-[180vh] bg-[#e9ebea]">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        {/* Grilla: en vertical se apilan título / lata / dato / progreso; apaisado, tres columnas */}
-        <div className="mx-auto grid h-full w-full max-w-[1240px] grid-cols-1 2xl:max-w-[1560px] grid-rows-[auto_minmax(0,1fr)_auto_auto] px-5 pb-5 pt-[76px] md:px-8 md:pt-[88px] wide:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] wide:grid-rows-[minmax(0,1fr)_auto] wide:gap-x-8 wide:pb-7">
-          <div className="wide:col-start-1 wide:row-start-1 wide:self-center">
+        {/* Video: en apaisado ocupa la derecha y se funde con el fondo; en vertical, debajo del título */}
+        <motion.div
+          style={{ scale: escala, opacity: opacidad }}
+          className="absolute inset-x-0 bottom-0 top-[34%] wide:inset-y-0 wide:left-[30%] wide:right-[-6%] wide:top-0"
+        >
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            style={BORDES_SUAVES}
+            poster="/video/agua-h.jpg"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden
+          >
+            <source src="/video/agua-h.mp4" type='video/mp4; codecs="avc1.640028"' />
+            <source src="/video/agua-h.webm" type='video/webm; codecs="vp9"' />
+          </video>
+        </motion.div>
+
+        <div className="pointer-events-none relative mx-auto grid h-full w-full max-w-[1240px] grid-cols-1 grid-rows-[auto_minmax(0,1fr)] px-5 pb-6 pt-[84px] md:px-8 md:pt-[96px] 2xl:max-w-[1560px] wide:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] wide:grid-rows-1 wide:gap-x-10 wide:pb-10">
+          <div className="wide:self-center">
             <Headline
-              className="text-[clamp(28px,min(8.6vw,5.2svh),48px)] font-extrabold leading-[0.95] tracking-[-0.035em] wide:max-w-[6.6em] wide:text-[clamp(30px,min(4vw,7svh),84px)]"
-              parts={["Todo lo que necesitás.", { t: "Nada", it: true }, "más."]}
+              className="text-[clamp(34px,min(10vw,6svh),56px)] font-extrabold leading-[0.95] tracking-[-0.035em] wide:text-[clamp(40px,min(5.6vw,10svh),112px)]"
+              parts={["Todo lo que", { br: "hidden wide:block" }, "necesitás.", { br: true }, { t: "Nada", it: true }, "más."]}
             />
-          </div>
-
-          {/* Lata */}
-          <div className="relative min-h-0 wide:col-start-2 wide:row-start-1">
-            <div className="absolute inset-0">
-              <Can3D spin={spin} autoRotate={false} interactive={false} float={false} initialAngle={0} className="h-full w-full" />
-            </div>
-          </div>
-
-          {/* Dato activo: alto fijo en vertical para que la lata no salte entre pasos */}
-          <div className="relative h-[10rem] md:h-[11rem] wide:col-start-3 wide:row-start-1 wide:h-auto wide:self-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={reduce ? { opacity: 0 } : { opacity: 0, y: -18, filter: "blur(6px)" }}
-                transition={{ duration: 0.5, ease: EASE }}
-                className="absolute inset-x-0 top-1 wide:static wide:max-w-[30rem]"
-              >
-                <p className="rotulo text-muted">
-                  {String(step + 1).padStart(2, "0")} <span className="mx-1">/</span> {s.k}
-                </p>
-                <p
-                  className={
-                    "mt-2 font-extrabold leading-none tracking-[-0.03em] " +
-                    (s.big
-                      ? "text-[clamp(40px,min(12vw,6.8svh),64px)] wide:text-[clamp(44px,min(6vw,10svh),120px)]"
-                      : "text-[clamp(28px,min(8vw,4.6svh),44px)] wide:text-[clamp(28px,min(3.8vw,6.5svh),72px)]")
-                  }
-                >
-                  {s.v}
-                </p>
-                <p className="mt-2.5 max-w-[26rem] text-pretty text-[15px] leading-snug text-ink/65 md:text-[17px] wide:mt-3 wide:text-[clamp(15px,min(1.25vw,2.2svh),22px)]">
-                  {s.d}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Progreso */}
-          <div className="flex items-center gap-4 pt-3 wide:col-span-3 wide:row-start-2 wide:pt-4">
-            <div className="relative h-px flex-1 bg-ink/15">
-              <motion.div style={{ width: bar }} className="absolute inset-y-0 left-0 bg-ink" />
-            </div>
-            <ol className="flex gap-3">
-              {STEPS.map((x, i) => (
-                <li
-                  key={x.k}
-                  className={"h-1.5 w-1.5 rounded-full transition-colors duration-300 " + (i <= step ? "bg-ink" : "bg-ink/20")}
-                >
-                  <span className="sr-only">{x.k}</span>
-                </li>
-              ))}
-            </ol>
           </div>
         </div>
       </div>
