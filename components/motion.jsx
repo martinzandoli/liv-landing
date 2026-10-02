@@ -10,7 +10,7 @@ const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayout
 /* Titular que entra palabra por palabra desde abajo.
    `parts`: strings o { t, it } (itálica Fraunces) / { t, cross } (el ×) /
    { br: "clases" } (salto de línea forzado; las clases deciden en qué pantallas, p. ej. "hidden wide:block"). */
-export function Headline({ as = "h2", parts, className = "", delay = 0, stagger = 0.06, immediate = false }) {
+export function Headline({ as = "h2", id, parts, className = "", delay = 0, stagger = 0.06, immediate = false }) {
   const reduce = useReducedMotion();
   const Tag = motion[as];
   const words = [];
@@ -30,6 +30,7 @@ export function Headline({ as = "h2", parts, className = "", delay = 0, stagger 
 
   return (
     <Tag
+      id={id}
       className={className}
       initial={reduce ? false : "hidden"}
       {...trigger}

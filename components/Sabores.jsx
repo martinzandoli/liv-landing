@@ -108,7 +108,15 @@ function RaspberryCard() {
 
       <div className="relative z-10 order-1 flex flex-col justify-between gap-10 p-7 sm:h-full sm:min-h-[inherit] sm:w-[62%] md:p-10">
         <h3 className="it text-[clamp(52px,6.4vw,100px)] leading-[0.9] tracking-[-0.03em]">Raspberry</h3>
-        <p className="text-[26px] font-extrabold leading-none tracking-[-0.02em] md:text-[30px]">Frambuesa</p>
+        <div className="flex flex-col items-start gap-6">
+          <p className="text-[26px] font-extrabold leading-none tracking-[-0.02em] md:text-[30px]">Frambuesa</p>
+          <a
+            href="/tienda"
+            className="inline-flex items-center gap-2 rounded-full bg-rasp px-6 py-3 text-[14px] font-semibold text-rasp-cream transition-transform duration-300 hover:scale-[1.03]"
+          >
+            Ver los packs <span aria-hidden>→</span>
+          </a>
+        </div>
       </div>
     </motion.article>
   );
