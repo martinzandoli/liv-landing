@@ -1,10 +1,10 @@
 "use client";
 
 import SignupForm from "./SignupForm";
-import { NAV } from "./Header";
+import { NAV, enlace } from "./Header";
 import { Headline, Reveal } from "./motion";
 
-export default function Cierre() {
+export default function Cierre({ base = "" }) {
   return (
     <footer className="overflow-hidden bg-white text-ink">
       <section id="lista" className="mx-auto max-w-[1240px] px-5 pb-20 pt-24 md:px-8 md:pb-28 md:pt-36">
@@ -32,7 +32,7 @@ export default function Cierre() {
             <ul className="mt-4 space-y-2">
               {NAV.map(({ href, label }) => (
                 <li key={href}>
-                  <a href={href} className="text-ink/70 transition-colors hover:text-ink">
+                  <a href={enlace(href, base)} className="text-ink/70 transition-colors hover:text-ink">
                     {label}
                   </a>
                 </li>

@@ -10,9 +10,13 @@ export const NAV = [
   { href: "#teanina", label: "Fórmula" },
   { href: "#momentos", label: "Momentos" },
   { href: "#sabores", label: "Sabores" },
+  { href: "/tienda", label: "Tienda" },
 ];
 
-export default function Header() {
+// En otras páginas (como /tienda) las anclas apuntan a la landing; la lista de espera está en todas
+export const enlace = (href, base = "") => (href.startsWith("#") && href !== "#lista" ? base + href : href);
+
+export default function Header({ base = "", acciones = null }) {
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40, mass: 0.3 });
   const [hidden, setHidden] = useState(false);
@@ -62,7 +66,7 @@ export default function Header() {
         }
       >
         <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-6 px-5 md:h-[72px] md:px-8">
-          <a href="#top" aria-label="LIV, volver al inicio" className="shrink-0">
+          <a href={base ? "/" : "#top"} aria-label="LIV, volver al inicio" className="shrink-0">
             <Logo className="h-[22px] w-auto md:h-6" />
           </a>
 
@@ -70,7 +74,7 @@ export default function Header() {
             {NAV.map(({ href, label }) => (
               <a
                 key={href}
-                href={href}
+                href={enlace(href, base)}
                 className="group relative text-[13.5px] font-medium text-ink/70 transition-colors hover:text-ink"
               >
                 {label}
@@ -80,6 +84,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            {acciones}
             <a
               href="#lista"
               className="rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
@@ -131,7 +136,7 @@ export default function Header() {
               {[...NAV, { href: "#lista", label: "Sumate a la lista" }].map(({ href, label }, i) => (
                 <motion.a
                   key={href}
-                  href={href}
+                  href={enlace(href, base)}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
