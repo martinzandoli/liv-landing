@@ -106,7 +106,7 @@ function Galeria({ pack }) {
   useEffect(() => setVista("pack"), [pack.id]);
   const fotos = {
     pack: { src: pack.img, alt: `${pack.nombre} de LIV Raspberry: ${pack.latas} latas` },
-    lata: { src: "/tienda/lata-v2.jpg", alt: "Lata de LIV Raspberry de 355 mL" },
+    lata: { src: "/tienda/lata-v3.jpg", alt: "Lata de LIV Raspberry de 355 mL" },
   };
   const foto = fotos[vista];
   return (
