@@ -5,15 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { precioArs } from "@/lib/catalogo";
 import SignupForm from "../SignupForm";
-import { EASE, Ficha, Headline, Reveal } from "../motion";
+import { EASE, Headline, Reveal } from "../motion";
 import { Cantidad, useCarrito } from "./Carrito";
-
-const FICHA = [
-  { r: "Cafeína", v: 100, u: "mg" },
-  { r: "L-teanina", v: 200, u: "mg" },
-  { r: "Azúcar", v: 0, u: "g" },
-  { r: "Kcal", v: 0 },
-];
 
 export default function Tienda({ packs }) {
   const [sel, setSel] = useState("x12");
@@ -57,11 +50,8 @@ function Configurador({ ref, packs, pack, sel, setSel }) {
               Energy drink con gas en lata sleek de 355 mL. Primer sabor: Raspberry.
             </p>
           </Reveal>
-          <Reveal immediate delay={0.3} className="mt-8">
-            <Ficha items={FICHA} />
-          </Reveal>
 
-          <fieldset className="mt-10">
+          <fieldset className="mt-9">
             <legend className="rotulo text-muted">Pack</legend>
             <div role="radiogroup" aria-label="Elegí el pack" className="mt-3 grid grid-cols-3 gap-2.5">
               {packs.map((p) => {
@@ -106,7 +96,7 @@ function Galeria({ pack }) {
   useEffect(() => setVista("pack"), [pack.id]);
   const fotos = {
     pack: { src: pack.img, alt: `${pack.nombre} de LIV Raspberry: ${pack.latas} latas` },
-    lata: { src: "/tienda/lata-v4.jpg", alt: "Lata de LIV Raspberry de 355 mL" },
+    lata: { src: "/tienda/lata-v5.jpg", alt: "Lata de LIV Raspberry de 355 mL" },
   };
   const foto = fotos[vista];
   return (
