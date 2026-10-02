@@ -45,11 +45,6 @@ function Configurador({ ref, packs, pack, sel, setSel }) {
             className="mt-4 text-[clamp(48px,6.4vw,92px)] font-extrabold leading-[0.92] tracking-[-0.04em]"
             parts={["Elegí tu", { t: "pack.", it: true }]}
           />
-          <Reveal immediate delay={0.2}>
-            <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-ink/70">
-              Energy drink con gas en lata sleek de 355 mL. Primer sabor: Raspberry.
-            </p>
-          </Reveal>
 
           <fieldset className="mt-9">
             <legend className="rotulo text-muted">Pack</legend>
@@ -70,7 +65,6 @@ function Configurador({ ref, packs, pack, sel, setSel }) {
                   >
                     <span className="text-[28px] font-extrabold leading-none tracking-[-0.03em] md:text-[32px]">x{p.latas}</span>
                     <span className={"mt-2 text-[13px] font-semibold " + (activo ? "text-white" : "text-ink")}>{p.latas} latas</span>
-                    <span className={"mt-0.5 text-[12px] " + (activo ? "text-white/65" : "text-muted")}>{p.lema}</span>
                   </button>
                 );
               })}
@@ -214,7 +208,7 @@ function Packs({ packs, sel, elegir }) {
                   <div>
                     <h3 className="text-[28px] font-extrabold leading-none tracking-[-0.03em]">{p.nombre}</h3>
                     <p className="mt-2 text-[14px] text-muted">
-                      {p.latas} latas · {p.lema}
+                      {p.latas} latas de 355 mL
                     </p>
                   </div>
                   <p className="text-right text-[15px] font-semibold tabular-nums">{p.disponible ? precioArs(p.precio) : "Próximamente"}</p>
