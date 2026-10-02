@@ -15,7 +15,7 @@ export const metadata = {
   openGraph: {
     title: "Tienda — LIV",
     description: "Elegí tu pack de LIV Raspberry: x6, x12 o x24 latas de 355 mL.",
-    images: ["/tienda/latas-x12-v3.jpg"],
+    images: ["/tienda/latas-x12-v4.jpg"],
     locale: "es_AR",
     type: "website",
   },
