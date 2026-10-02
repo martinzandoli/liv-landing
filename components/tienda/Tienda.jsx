@@ -48,7 +48,7 @@ function Configurador({ ref, packs, pack, sel, setSel }) {
 
           <fieldset className="mt-9">
             <legend className="rotulo text-muted">Pack</legend>
-            <div role="radiogroup" aria-label="Elegí el pack" className="mt-3 grid grid-cols-3 gap-2.5">
+            <div role="radiogroup" aria-label="Elegí el pack" className="mt-3 grid grid-cols-2 gap-2.5">
               {packs.map((p) => {
                 const activo = p.id === sel;
                 return (
@@ -108,7 +108,6 @@ function Galeria({ pack }) {
             <Image src={foto.src} alt={foto.alt} fill priority sizes="(min-width: 1024px) 640px, 100vw" className="object-contain" />
           </motion.div>
         </AnimatePresence>
-        <p className="rotulo absolute left-5 top-5 text-muted md:left-6 md:top-6">LIV Raspberry · 355 mL</p>
         {!pack.disponible && (
           <span className="absolute right-5 top-4 inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 text-[12px] font-semibold text-white md:right-6 md:top-5">
             <span className="h-1.5 w-1.5 rounded-full bg-white" /> Próximamente
@@ -182,9 +181,9 @@ function Packs({ packs, sel, elegir }) {
         <Headline
           id="titulo-packs"
           className="mt-4 text-[clamp(40px,5vw,72px)] font-extrabold leading-[0.95] tracking-[-0.04em]"
-          parts={["Tres packs,", "una", { t: "lata.", it: true }]}
+          parts={["Dos packs,", "una", { t: "lata.", it: true }]}
         />
-        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
           {packs.map((p, i) => (
             <motion.article
               key={p.id}
@@ -208,7 +207,7 @@ function Packs({ packs, sel, elegir }) {
                   <div>
                     <h3 className="text-[28px] font-extrabold leading-none tracking-[-0.03em]">{p.nombre}</h3>
                     <p className="mt-2 text-[14px] text-muted">
-                      {p.latas} latas de 355 mL
+                      {p.latas} latas
                     </p>
                   </div>
                   <p className="text-right text-[15px] font-semibold tabular-nums">{p.disponible ? precioArs(p.precio) : "Próximamente"}</p>
