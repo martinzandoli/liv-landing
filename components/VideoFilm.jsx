@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Headline, Reveal } from "./motion";
+import { Headline } from "./motion";
 
 /* Video en loop que solo se reproduce mientras está en pantalla.
    Con "reducir movimiento" no arranca solo: queda el póster y el botón. */
@@ -93,17 +93,17 @@ export default function VideoFilm() {
         <video
           ref={desk.ref}
           className="absolute inset-0 h-full w-full object-cover"
-          poster="/video/giro-h.jpg"
+          poster="/video/giro-real-h.jpg"
           muted
           loop
           playsInline
           preload="none"
           aria-hidden
         >
-          <source src="/video/giro-h.mp4" type='video/mp4; codecs="avc1.640028"' />
-          <source src="/video/giro-h.webm" type='video/webm; codecs="vp9"' />
+          <source src="/video/giro-real-h.mp4" type='video/mp4; codecs="avc1.640028"' />
+          <source src="/video/giro-real-h.webm" type='video/webm; codecs="vp9"' />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#e9d8c3]/70 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#eeede9]/80 via-transparent to-transparent" />
         <div className="relative mx-auto flex h-full max-w-[1240px] flex-col justify-between px-8 py-16">
           <p className="rotulo text-ink/60">En estudio · 360°</p>
           <div className="max-w-[30rem]">
@@ -111,11 +111,6 @@ export default function VideoFilm() {
               className="text-[clamp(48px,6vw,92px)] font-extrabold leading-[0.92] tracking-[-0.04em]"
               parts={["La parte", { t: "linda", it: true }, "de cuidarte."]}
             />
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-[24rem] text-[17px] leading-relaxed text-ink/70">
-                Una lata fría, liviana y lista para ir con vos. Adelante está la marca; atrás, todo lo que tiene.
-              </p>
-            </Reveal>
           </div>
           <div className="flex items-center gap-4">
             <PlayToggle playing={desk.playing} onClick={desk.toggle} />
@@ -132,23 +127,20 @@ export default function VideoFilm() {
             className="mt-4 text-[44px] font-extrabold leading-[0.92] tracking-[-0.04em]"
             parts={["La parte", { t: "linda", it: true }, "de cuidarte."]}
           />
-          <p className="mt-5 text-[16px] leading-relaxed text-white/70">
-            Una lata fría, liviana y lista para ir con vos. Adelante está la marca; atrás, todo lo que tiene.
-          </p>
         </div>
         <div className="relative aspect-[1080/1340] w-full overflow-hidden">
           <video
             ref={mob.ref}
             className="absolute inset-0 h-full w-full object-cover"
-            poster="/video/giro-v.jpg"
+            poster="/video/giro-real-v.jpg"
             muted
             loop
             playsInline
             preload="none"
             aria-hidden
           >
-            <source src="/video/giro-v.mp4" type='video/mp4; codecs="avc1.640028"' />
-            <source src="/video/giro-v.webm" type='video/webm; codecs="vp9"' />
+            <source src="/video/giro-real-v.mp4" type='video/mp4; codecs="avc1.640028"' />
+            <source src="/video/giro-real-v.webm" type='video/webm; codecs="vp9"' />
           </video>
           <PlayToggle playing={mob.playing} onClick={mob.toggle} className="absolute bottom-4 right-4" />
         </div>

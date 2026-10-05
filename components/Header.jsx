@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import { EASE } from "./motion";
 
 export const NAV = [
+  { href: "#que-es", label: "Qué es LIV" },
   { href: "#lata", label: "La lata" },
   { href: "#teanina", label: "Fórmula" },
   { href: "#momentos", label: "Momentos" },

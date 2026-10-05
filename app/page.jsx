@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
+import QueEsLiv from "@/components/QueEsLiv";
 import CanStory from "@/components/CanStory";
 import Teanina from "@/components/Teanina";
 import Momentos from "@/components/Momentos";
@@ -16,6 +17,7 @@ export default function Page() {
       <main>
         <Hero />
         <Marquee />
+        <QueEsLiv />
         <CanStory />
         <Teanina />
         <Momentos />

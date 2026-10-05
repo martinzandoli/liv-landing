@@ -49,15 +49,15 @@ export default function CanStory() {
             ref={videoRef}
             className="h-full w-full object-cover"
             style={BORDES_SUAVES}
-            poster="/video/agua-h.jpg"
+            poster="/video/agua-v2-h.jpg"
             muted
             loop
             playsInline
             preload="metadata"
             aria-hidden
           >
-            <source src="/video/agua-h.mp4" type='video/mp4; codecs="avc1.640028"' />
-            <source src="/video/agua-h.webm" type='video/webm; codecs="vp9"' />
+            <source src="/video/agua-v2-h.mp4" type='video/mp4; codecs="avc1.640028"' />
+            <source src="/video/agua-v2-h.webm" type='video/webm; codecs="vp9"' />
           </video>
         </motion.div>
 

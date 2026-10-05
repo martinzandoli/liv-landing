@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Can3D from "./Can3D";
+import LataReal from "./LataReal";
 import SignupForm from "./SignupForm";
 import Logo from "./Logo";
 import { EASE, Ficha, Reveal } from "./motion";
@@ -89,9 +89,9 @@ export default function Hero() {
             initial={reduce ? false : { opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: EASE, delay: 0.45 }}
-            className="absolute inset-0"
+            className="absolute inset-x-0 bottom-[9%] top-[4%]"
           >
-            <Can3D spin={spin} className="h-full w-full" autoRotate={false} sway={0.4} settle initialAngle={-0.2} />
+            <LataReal spin={spin} className="h-full w-full" sway={0.3} settle priority sizes="(min-width: 1024px) 22vw, 45vw" />
           </motion.div>
           <p className="rotulo pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-muted/80">
             ← Arrastrá para girar →
