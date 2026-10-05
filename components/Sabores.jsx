@@ -3,16 +3,11 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import { LOGO_PATH } from "./Logo";
+import { whatsapp } from "@/lib/contacto";
 import { EASE, Reveal } from "./motion";
 
-/* Tonos de exploración del manual de marca: cada sabor cambia solo su tono y su fondo */
-const PROXIMOS = [
-  { tone: "#A2490F", cream: "#FDF6EC" },
-  { tone: "#2C3A76", cream: "#F2F3FA" },
-  { tone: "#5A2B70", cream: "#F8F2FA" },
-  { tone: "#1E6560", cream: "#EFF7F5" },
-];
+// Para proponer el próximo sabor por WhatsApp (todavía no hay un segundo sabor definido)
+const PROPONER = whatsapp("Hola LIV, el próximo sabor tendría que ser: ");
 
 export default function Sabores() {
   const reduce = useReducedMotion();
@@ -24,26 +19,29 @@ export default function Sabores() {
         <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
           <RaspberryCard />
           <Reveal delay={0.1} className="h-full">
-            <div className="flex h-full flex-col justify-between gap-8 rounded-[6px] bg-white p-7 md:p-8">
-              <p className="rotulo text-muted">Próximos sabores</p>
-              <div className="grid flex-1 grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
-                {PROXIMOS.map((s, i) => (
-                  <motion.div
-                    key={s.tone}
-                    initial={reduce ? false : { opacity: 0, y: 30, scale: 0.92 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.8, ease: EASE, delay: 0.15 + i * 0.08 }}
-                    className="group grid place-items-center rounded-[6px] py-5 lg:py-6"
-                    style={{ background: s.cream }}
-                  >
-                    <MiniCan
-                      tone={s.tone}
-                      cream={s.cream}
-                      className="h-28 w-auto transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:-translate-y-2 group-hover:rotate-[-4deg] sm:h-36 lg:h-40"
-                    />
-                  </motion.div>
-                ))}
+            <div className="flex h-full flex-col gap-8 rounded-[6px] bg-white p-7 md:p-8">
+              <p className="rotulo text-muted">Lo que viene</p>
+              <div className="grid flex-1 place-items-center py-2">
+                <LataPorVenir reduce={reduce} className="h-48 sm:h-56 lg:h-60" />
+              </div>
+              <div>
+                <h3 className="text-[clamp(30px,3vw,40px)] font-extrabold leading-[0.95] tracking-[-0.03em]">
+                  ¿Qué sabor <span className="it font-normal">sigue?</span>
+                </h3>
+                <p className="mt-4 max-w-[26rem] text-[15.5px] leading-relaxed text-ink/65">
+                  Raspberry es el primero y, por ahora, el único. El próximo todavía no está decidido: contanos cuál te gustaría probar.
+                </p>
+                <a
+                  href={PROPONER}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-6 inline-flex items-center gap-2 rounded-full border border-ink px-5 py-2.5 text-[14px] font-semibold transition-colors duration-300 hover:bg-ink hover:text-white"
+                >
+                  Proponé un sabor
+                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </a>
               </div>
             </div>
           </Reveal>
@@ -97,7 +95,7 @@ function RaspberryCard() {
         <div aria-hidden className="absolute bottom-[4%] left-1/2 h-[5%] w-[46%] -translate-x-1/2 rounded-[50%] bg-[rgba(40,5,20,0.35)] blur-xl" />
         <motion.div style={{ rotateX: rx, rotateY: ry, x: tx }} className="absolute inset-x-0 inset-y-[6%]">
           <Image
-            src="/can/lata-raspberry-mate-v2.png"
+            src="/can/real/lata-frente.webp"
             alt="Lata de LIV Raspberry, 355 mL"
             fill
             sizes="(min-width: 1024px) 26vw, 50vw"
@@ -122,41 +120,29 @@ function RaspberryCard() {
   );
 }
 
-/* Lata en miniatura (SVG) con la estructura de la etiqueta y el color del sabor */
-function MiniCan({ tone, cream, className = "" }) {
-  const id = tone.slice(1);
+/* Lata "por venir": la lata real en blanco, sin etiqueta impresa, con un signo de pregunta.
+   No anticipa ningún sabor. */
+function LataPorVenir({ reduce, className = "" }) {
   return (
-    <svg viewBox="0 0 64 160" className={className} aria-hidden>
-      <defs>
-        <linearGradient id={`al-${id}`} x1="0" x2="1">
-          <stop offset="0" stopColor="#8f8f94" />
-          <stop offset="0.3" stopColor="#ececef" />
-          <stop offset="0.62" stopColor="#c6c6ca" />
-          <stop offset="1" stopColor="#86868b" />
-        </linearGradient>
-        <linearGradient id={`sh-${id}`} x1="0" x2="1">
-          <stop offset="0" stopColor="#000" stopOpacity="0.16" />
-          <stop offset="0.22" stopColor="#fff" stopOpacity="0.38" />
-          <stop offset="0.45" stopColor="#fff" stopOpacity="0" />
-          <stop offset="0.75" stopColor="#000" stopOpacity="0.03" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.2" />
-        </linearGradient>
-      </defs>
-      <rect x="10" y="0" width="44" height="5" rx="2" fill={`url(#al-${id})`} />
-      <path d="M8 5 H56 L59 13 H5 Z" fill={`url(#al-${id})`} />
-      <rect x="5" y="13" width="54" height="136" fill={cream} />
-      <rect x="5" y="15" width="54" height="7" fill={tone} />
-      <svg x="17" y="30" width="30" height="80" viewBox="0 0 163 435">
-        <g transform="translate(0 435) rotate(-90)">
-          <path fillRule="evenodd" d={LOGO_PATH} fill={tone} />
-        </g>
-      </svg>
-      <rect x="5" y="124" width="54" height="23" fill={tone} />
-      <text x="32" y="140.5" textAnchor="middle" fill={cream} className="font-serif italic" fontSize="13">
-        ?
-      </text>
-      <rect x="5" y="13" width="54" height="136" fill={`url(#sh-${id})`} />
-      <path d="M5 149 H59 L56 156 Q32 161 8 156 Z" fill={`url(#al-${id})`} />
-    </svg>
+    <motion.div
+      aria-hidden
+      className={"relative aspect-[538/1396] " + className}
+      initial={reduce ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.9, ease: EASE }}
+    >
+      <motion.div
+        className="absolute inset-0"
+        animate={reduce ? undefined : { y: [0, -6, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Image src="/can/real/lata-blanca.webp" alt="" fill sizes="120px" className="object-contain" />
+        <span className="it absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 text-[clamp(44px,4vw,60px)] leading-none text-ink/70">
+          ?
+        </span>
+      </motion.div>
+      <div className="absolute -bottom-[3%] left-1/2 h-[4%] w-[90%] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgba(0,0,0,0.22),transparent)] blur-[3px]" />
+    </motion.div>
   );
 }

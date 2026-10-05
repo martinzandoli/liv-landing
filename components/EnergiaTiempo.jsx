@@ -5,8 +5,8 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import Logo from "./Logo";
 import { EASE, Headline, Reveal } from "./motion";
 
-/* Gráfico "energía en el tiempo": dos curvas que se dibujan de izquierda a derecha en loop mientras
-   el gráfico está en pantalla (se dibujan, quedan un instante y se borran). Es ilustrativo, no una medición. */
+/* Gráfico "energía en el tiempo": las dos curvas en un mismo gráfico. Se dibujan de izquierda a derecha en loop
+   mientras el gráfico está en pantalla (se dibujan, quedan un instante y se borran). Es ilustrativo, no una medición. */
 
 const W = 600;
 const H = 240;
@@ -52,79 +52,136 @@ function yEn(pts, x) {
   return x1 === x0 ? y0 : y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
 }
 
-function Curva({ id, d, tramo, fuerte, etiquetas }) {
-  // se muestrea en el cliente (necesita el DOM); en el servidor el punto arranca en el origen
-  const [pts, setPts] = useState([]);
-  useEffect(() => setPts(muestras(d)), [d]);
+// Las dos curvas en el mismo gráfico: el energizante común queda de fondo, LIV adelante
+const SERIES = [
+  {
+    id: "pico",
+    d: PICO,
+    etiquetas: [
+      { t: "Pico", x: 150, y: 4, en: 0.3 },
+      { t: "Bajón", x: 318, y: 178, en: 0.55 },
+    ],
+  },
+  {
+    id: "pareja",
+    d: PAREJA,
+    fuerte: true,
+    etiquetas: [{ t: "Energía más pareja y sostenida", x: 432, y: 40, en: 0.62 }],
+  },
+];
+
+function Leyenda() {
+  return (
+    <ul className="mb-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-[14px] md:text-[15px]">
+      <li className="flex items-center gap-3 text-white/60">
+        <span aria-hidden className="h-[1.5px] w-7 bg-white/50" />
+        Energizante común
+      </li>
+      <li className="flex items-center gap-3 font-semibold text-white">
+        <span aria-hidden className="h-[3px] w-7 rounded-full bg-white" />
+        <Logo title="LIV" className="h-[15px] w-auto text-white" />
+        <span className="font-normal text-white/60">cafeína + L-teanina</span>
+      </li>
+    </ul>
+  );
+}
+
+function Serie({ id, d, fuerte, tramo }) {
   const { s, e: fin } = tramo; // la línea se ve entre s (cola) y fin (punta), de 0 a 1
-  const x = fin * W;
-  const y = fin > 0 ? yEn(pts, Math.max(1, x)) : BASE;
-  const punto = fin > 0 && s < 0.995;
   const area = `${d} L${W},${H} L0,${H} Z`;
+  return (
+    <>
+      <defs>
+        {/* máscara: punta nítida (la línea "se dibuja") y cola difuminada cuando se borra */}
+        <linearGradient id={`ventana-${id}`} gradientUnits="userSpaceOnUse" x1="0" x2={W} y1="0" y2="0">
+          <stop offset="0" stopColor="#fff" stopOpacity={s > 0 ? 0 : 1} />
+          <stop offset={Math.max(0, s - 0.08)} stopColor="#fff" stopOpacity={s > 0 ? 0 : 1} />
+          <stop offset={s} stopColor="#fff" stopOpacity="1" />
+          <stop offset={Math.max(s, fin)} stopColor="#fff" stopOpacity="1" />
+          <stop offset={Math.min(1, Math.max(s, fin) + 0.001)} stopColor="#fff" stopOpacity="0" />
+          <stop offset="1" stopColor="#fff" stopOpacity={fin >= 1 ? 1 : 0} />
+        </linearGradient>
+        <mask id={`mask-${id}`} maskUnits="userSpaceOnUse" x="-10" y="-20" width={W + 20} height={H + 40}>
+          <rect x="-10" y="-20" width={W + 20} height={H + 40} fill={`url(#ventana-${id})`} />
+        </mask>
+        <linearGradient id={`grad-${id}`} x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="#fff" stopOpacity={fuerte ? 0.24 : 0.07} />
+          <stop offset="1" stopColor="#fff" stopOpacity={fuerte ? 0.03 : 0.01} />
+        </linearGradient>
+      </defs>
+      <g mask={fin > 0 ? `url(#mask-${id})` : undefined} opacity={fin > 0 ? 1 : 0}>
+        <path d={area} fill={`url(#grad-${id})`} />
+        <path
+          d={d}
+          fill="none"
+          stroke="#fff"
+          strokeOpacity={fuerte ? 1 : 0.45}
+          strokeWidth={fuerte ? 2.6 : 1.5}
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+      </g>
+    </>
+  );
+}
+
+function Grafico({ tramo }) {
+  // se muestrea en el cliente (necesita el DOM); en el servidor los puntos arrancan en el origen
+  const [pts, setPts] = useState({});
+  useEffect(() => setPts(Object.fromEntries(SERIES.map((x) => [x.id, muestras(x.d)]))), []);
+  const { s, e: fin } = tramo;
+  const x = fin * W;
+  const punto = fin > 0 && s < 0.995;
 
   return (
     <div className="relative">
-      <div className="relative aspect-[600/240] w-full lg:aspect-[600/185]">
+      <div className="relative aspect-[600/300] w-full lg:aspect-[600/260]">
         <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden>
-          <defs>
-            {/* máscara: punta nítida (la línea "se dibuja") y cola difuminada cuando se borra */}
-            <linearGradient id={`ventana-${id}`} gradientUnits="userSpaceOnUse" x1="0" x2={W} y1="0" y2="0">
-              <stop offset="0" stopColor="#fff" stopOpacity={s > 0 ? 0 : 1} />
-              <stop offset={Math.max(0, s - 0.08)} stopColor="#fff" stopOpacity={s > 0 ? 0 : 1} />
-              <stop offset={s} stopColor="#fff" stopOpacity="1" />
-              <stop offset={Math.max(s, fin)} stopColor="#fff" stopOpacity="1" />
-              <stop offset={Math.min(1, Math.max(s, fin) + 0.001)} stopColor="#fff" stopOpacity="0" />
-              <stop offset="1" stopColor="#fff" stopOpacity={fin >= 1 ? 1 : 0} />
-            </linearGradient>
-            <mask id={`mask-${id}`} maskUnits="userSpaceOnUse" x="-10" y="-20" width={W + 20} height={H + 40}>
-              <rect x="-10" y="-20" width={W + 20} height={H + 40} fill={`url(#ventana-${id})`} />
-            </mask>
-            <linearGradient id={`grad-${id}`} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stopColor="#fff" stopOpacity={fuerte ? 0.26 : 0.1} />
-              <stop offset="1" stopColor="#fff" stopOpacity={fuerte ? 0.04 : 0.02} />
-            </linearGradient>
-          </defs>
-          {/* ejes */}
+          {/* guías horizontales y ejes */}
+          {[0.33, 0.66].map((g) => (
+            <line key={g} x1="0" y1={BASE * g} x2={W} y2={BASE * g} stroke="#fff" strokeOpacity="0.07" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+          ))}
           <line x1="0" y1="0" x2="0" y2={BASE} stroke="#fff" strokeOpacity="0.22" strokeWidth="1" vectorEffect="non-scaling-stroke" />
           <line x1="0" y1={BASE} x2={W} y2={BASE} stroke="#fff" strokeOpacity="0.22" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-          <g mask={fin > 0 ? `url(#mask-${id})` : undefined} opacity={fin > 0 ? 1 : 0}>
-            <path d={area} fill={`url(#grad-${id})`} />
-            <path
-              d={d}
-              fill="none"
-              stroke="#fff"
-              strokeOpacity={fuerte ? 1 : 0.5}
-              strokeWidth={fuerte ? 2.4 : 1.6}
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </g>
+          {SERIES.map((serie) => (
+            <Serie key={serie.id} {...serie} tramo={tramo} />
+          ))}
         </svg>
 
-        {/* punto en la punta de la línea */}
-        <span
-          className={
-            "absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full " +
-            (fuerte ? "bg-white shadow-[0_0_0_5px_rgba(255,255,255,0.18)]" : "bg-white/60")
-          }
-          style={{ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%`, opacity: punto ? 1 : 0 }}
-        />
-
-        {etiquetas.map((e) => {
-          const ve = fin >= e.en && s < e.x / W;
+        {SERIES.map((serie) => {
+          const y = fin > 0 ? yEn(pts[serie.id] || [], Math.max(1, x)) : BASE;
           return (
-            <motion.span
-              key={e.t}
-              initial={false}
-              animate={{ opacity: ve ? 1 : 0, y: ve ? 0 : 6 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className={"absolute -translate-x-1/2 whitespace-nowrap text-[12px] md:text-[13px] " + (fuerte ? "font-semibold text-white" : "text-white/60")}
-              style={{ left: `${(e.x / W) * 100}%`, top: `${(e.y / H) * 100}%` }}
-            >
-              {e.t}
-            </motion.span>
+            <span
+              key={serie.id}
+              className={
+                "absolute -translate-x-1/2 -translate-y-1/2 rounded-full " +
+                (serie.fuerte ? "h-3 w-3 bg-white shadow-[0_0_0_6px_rgba(255,255,255,0.18)]" : "h-2 w-2 bg-white/55")
+              }
+              style={{ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%`, opacity: punto ? 1 : 0 }}
+            />
           );
         })}
+
+        {SERIES.flatMap((serie) =>
+          serie.etiquetas.map((e) => {
+            const ve = fin >= e.en && s < e.x / W;
+            return (
+              <motion.span
+                key={e.t}
+                initial={false}
+                animate={{ opacity: ve ? 1 : 0, y: ve ? 0 : 6 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className={
+                  "absolute -translate-x-1/2 whitespace-nowrap text-[12px] md:text-[13px] " +
+                  (serie.fuerte ? "font-semibold text-white" : "text-white/55")
+                }
+                style={{ left: `${(e.x / W) * 100}%`, top: `${(e.y / H) * 100}%` }}
+              >
+                {e.t}
+              </motion.span>
+            );
+          })
+        )}
 
         <span className="rotulo absolute -top-5 left-0 text-[10px] text-white/40">Energía</span>
       </div>
@@ -184,35 +241,9 @@ export default function EnergiaTiempo() {
         </p>
       </div>
 
-      <div ref={ref}>
-        <p className="mb-7 text-[15px] font-semibold text-white/70">Energizante común</p>
-        <Curva
-          id="pico"
-          d={PICO}
-          tramo={tramo}
-          etiquetas={[
-            { t: "Pico de energía", x: 150, y: 2, en: 0.3 },
-            { t: "Bajón", x: 330, y: 176, en: 0.55 },
-          ]}
-        />
-
-        <div className="my-8 flex items-center gap-4 text-white/40 lg:my-7">
-          <span className="h-px flex-1 bg-white/15" />
-          <span className="rotulo text-[11px]">vs</span>
-          <span className="h-px flex-1 bg-white/15" />
-        </div>
-
-        <p className="mb-7 flex items-center gap-3 text-[15px] font-semibold text-white">
-          <Logo title="LIV" className="h-[18px] w-auto text-white" />
-          <span className="text-white/60">cafeína + L-teanina</span>
-        </p>
-        <Curva
-          id="pareja"
-          d={PAREJA}
-          tramo={tramo}
-          fuerte
-          etiquetas={[{ t: "Energía más pareja y sostenida", x: 380, y: 34, en: 0.62 }]}
-        />
+      <div ref={ref} className="lg:self-center">
+        <Leyenda />
+        <Grafico tramo={tramo} />
       </div>
     </div>
   );
